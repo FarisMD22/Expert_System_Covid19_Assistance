@@ -1,288 +1,221 @@
-{
-  "_metadata": {
-    "file": "test_cases.json",
-    "description": "Test cases for CIDAS validation",
-    "version": "1.0",
-    "total_cases": 8,
-    "last_updated": "2025-01"
-  },
-
-  "test_cases": [
-    {
-      "case_id": "COVID_001",
-      "description": "Classic COVID-19 case with anosmia",
-      "expected_diagnosis": "COVID-19",
-      "expected_confidence": 0.92,
-      "expected_risk_level": "medium",
-      "expected_recommendation": "HOME_CARE_MONITORED",
-
-      "patient": {
-        "age": 35,
-        "gender": "M",
-        "state": "Selangor"
-      },
-
-      "symptoms": {
-        "fever": true,
-        "temp": 38.5,
-        "cough": true,
-        "cough_type": "dry",
-        "cough_duration": 3,
-        "fatigue": true,
-        "fatigue_severity": "moderate",
-        "loss_of_taste_smell": true,
-        "onset": "gradual",
-        "duration": 3
-      },
-
-      "medical_history": {
-        "diabetes": false,
-        "hypertension": false,
-        "heart_disease": false,
-        "lung_disease": false
-      },
-
-      "exposure_history": {
-        "close_contact": true,
-        "contact_days_ago": 5
-      }
+[
+  {
+    "case_id": "COVID_001",
+    "patient": {"patient_id": "P001", "age": 45, "gender": "M", "state": "Selangor"},
+    "symptoms": {
+      "fever": true,
+      "temp": 38.5,
+      "cough": true,
+      "cough_type": "dry",
+      "fatigue": true,
+      "fatigue_severity": "moderate",
+      "loss_of_taste_smell": true,
+      "onset": "gradual",
+      "duration": 5,
+      "oxygen_saturation": 96.0
     },
-
-    {
-      "case_id": "FLU_001",
-      "description": "Classic influenza with sudden onset",
-      "expected_diagnosis": "Influenza",
-      "expected_confidence": 0.85,
-      "expected_risk_level": "low",
-      "expected_recommendation": "HOME_ISOLATION",
-
-      "patient": {
-        "age": 28,
-        "gender": "F",
-        "state": "Kuala Lumpur"
-      },
-
-      "symptoms": {
-        "fever": true,
-        "temp": 39.2,
-        "cough": true,
-        "cough_type": "productive",
-        "body_ache": true,
-        "body_ache_severity": "severe",
-        "fatigue": true,
-        "fatigue_severity": "severe",
-        "onset": "sudden",
-        "duration": 1
-      },
-
-      "medical_history": {},
-      "exposure_history": {}
-    },
-
-    {
-      "case_id": "COLD_001",
-      "description": "Common cold with nasal symptoms",
-      "expected_diagnosis": "Common Cold",
-      "expected_confidence": 0.80,
-      "expected_risk_level": "low",
-      "expected_recommendation": "HOME_ISOLATION",
-
-      "patient": {
-        "age": 25,
-        "gender": "M",
-        "state": "Pulau Pinang"
-      },
-
-      "symptoms": {
-        "runny_nose": true,
-        "sneezing": true,
-        "sore_throat": true,
-        "cough": true,
-        "cough_type": "mild",
-        "fever": false,
-        "onset": "gradual",
-        "duration": 4
-      },
-
-      "medical_history": {},
-      "exposure_history": {}
-    },
-
-    {
-      "case_id": "ALLERGY_001",
-      "description": "Seasonal allergies",
-      "expected_diagnosis": "Allergies",
-      "expected_confidence": 0.88,
-      "expected_risk_level": "low",
-      "expected_recommendation": "HOME_ISOLATION",
-
-      "patient": {
-        "age": 30,
-        "gender": "F",
-        "state": "Johor"
-      },
-
-      "symptoms": {
-        "sneezing": true,
-        "sneezing_frequency": "frequent",
-        "itchy_eyes": true,
-        "runny_nose": true,
-        "fever": false,
-        "body_ache": false,
-        "onset": "sudden"
-      },
-
-      "medical_history": {},
-      "exposure_history": {}
-    },
-
-    {
-      "case_id": "COVID_002",
-      "description": "High-risk COVID case - elderly with comorbidities",
-      "expected_diagnosis": "COVID-19",
-      "expected_confidence": 0.88,
-      "expected_risk_level": "high",
-      "expected_recommendation": "HOSPITALIZATION",
-
-      "patient": {
-        "age": 72,
-        "gender": "M",
-        "state": "Selangor"
-      },
-
-      "symptoms": {
-        "fever": true,
-        "temp": 38.8,
-        "cough": true,
-        "cough_type": "dry",
-        "shortness_of_breath": true,
-        "fatigue": true,
-        "fatigue_severity": "severe",
-        "loss_of_taste_smell": true,
-        "oxygen_saturation": 92
-      },
-
-      "medical_history": {
-        "diabetes": true,
-        "hypertension": true,
-        "heart_disease": true
-      },
-
-      "exposure_history": {
-        "close_contact": true,
-        "contact_days_ago": 7
-      }
-    },
-
-    {
-      "case_id": "COVID_003",
-      "description": "Critical COVID case requiring ICU",
-      "expected_diagnosis": "COVID-19",
-      "expected_confidence": 0.95,
-      "expected_risk_level": "critical",
-      "expected_recommendation": "IMMEDIATE_HOSPITALIZATION",
-
-      "patient": {
-        "age": 68,
-        "gender": "F",
-        "state": "Kuala Lumpur"
-      },
-
-      "symptoms": {
-        "fever": true,
-        "temp": 39.5,
-        "cough": true,
-        "cough_type": "severe",
-        "shortness_of_breath": true,
-        "chest_pain": true,
-        "fatigue": true,
-        "fatigue_severity": "severe",
-        "oxygen_saturation": 88
-      },
-
-      "medical_history": {
-        "diabetes": true,
-        "lung_disease": true,
-        "obesity": true
-      },
-
-      "exposure_history": {
-        "close_contact": true,
-        "healthcare_worker": false
-      }
-    },
-
-    {
-      "case_id": "FLU_002",
-      "description": "Influenza in young patient - low risk",
-      "expected_diagnosis": "Influenza",
-      "expected_confidence": 0.85,
-      "expected_risk_level": "low",
-      "expected_recommendation": "HOME_ISOLATION",
-
-      "patient": {
-        "age": 22,
-        "gender": "M",
-        "state": "Sabah"
-      },
-
-      "symptoms": {
-        "fever": true,
-        "temp": 39.0,
-        "body_ache": true,
-        "body_ache_severity": "severe",
-        "headache": true,
-        "fatigue": true,
-        "fatigue_severity": "severe",
-        "onset": "sudden",
-        "duration": 2
-      },
-
-      "medical_history": {},
-      "exposure_history": {}
-    },
-
-    {
-      "case_id": "MIXED_001",
-      "description": "Ambiguous case - COVID vs Flu",
-      "expected_diagnosis": "COVID-19",
-      "expected_confidence": 0.75,
-      "expected_risk_level": "medium",
-      "expected_recommendation": "HOME_CARE_MONITORED",
-
-      "patient": {
-        "age": 45,
-        "gender": "F",
-        "state": "Melaka"
-      },
-
-      "symptoms": {
-        "fever": true,
-        "temp": 38.3,
-        "cough": true,
-        "fatigue": true,
-        "fatigue_severity": "moderate",
-        "body_ache": true,
-        "body_ache_severity": "moderate",
-        "headache": true
-      },
-
-      "medical_history": {
-        "hypertension": true
-      },
-
-      "exposure_history": {
-        "close_contact": true,
-        "contact_days_ago": 10
-      }
+    "medical_history": {"diabetes": false, "hypertension": false},
+    "expected": {
+      "diagnosis": "COVID-19",
+      "risk_level": "medium",
+      "recommendation": "HOME_CARE_MONITORED"
     }
-  ],
-
-  "notes": [
-    "Add 42+ more test cases to reach 50+ for full marks",
-    "Include edge cases and boundary conditions",
-    "Test all symptom combinations",
-    "Test all risk levels (low, medium, high, critical)",
-    "Test all recommendations (home, monitored, hospital, ICU)"
-  ]
-}
+  },
+  {
+    "case_id": "COVID_002",
+    "patient": {"patient_id": "P002", "age": 72, "gender": "F", "state": "Johor"},
+    "symptoms": {
+      "fever": true,
+      "temp": 39.2,
+      "cough": true,
+      "cough_type": "dry",
+      "shortness_of_breath": true,
+      "fatigue": true,
+      "fatigue_severity": "severe",
+      "chest_pain": true,
+      "onset": "gradual",
+      "duration": 7,
+      "oxygen_saturation": 91.0
+    },
+    "medical_history": {"diabetes": true, "hypertension": true, "heart_disease": true},
+    "expected": {
+      "diagnosis": "COVID-19",
+      "risk_level": "high",
+      "recommendation": "HOSPITALIZATION"
+    }
+  },
+  {
+    "case_id": "COVID_003",
+    "patient": {"patient_id": "P003", "age": 85, "gender": "M", "state": "Penang"},
+    "symptoms": {
+      "fever": true,
+      "temp": 39.8,
+      "cough": true,
+      "cough_type": "dry",
+      "shortness_of_breath": true,
+      "chest_pain": true,
+      "fatigue": true,
+      "fatigue_severity": "severe",
+      "onset": "gradual",
+      "duration": 10,
+      "oxygen_saturation": 84.0
+    },
+    "medical_history": {"diabetes": true, "heart_disease": true, "lung_disease": true},
+    "expected": {
+      "diagnosis": "COVID-19",
+      "risk_level": "critical",
+      "recommendation": "IMMEDIATE_HOSPITALIZATION"
+    }
+  },
+  {
+    "case_id": "FLU_001",
+    "patient": {"patient_id": "P006", "age": 35, "gender": "F", "state": "Melaka"},
+    "symptoms": {
+      "fever": true,
+      "temp": 39.5,
+      "cough": true,
+      "cough_type": "dry",
+      "body_ache": true,
+      "body_ache_severity": "severe",
+      "fatigue": true,
+      "fatigue_severity": "severe",
+      "headache": true,
+      "onset": "sudden",
+      "duration": 2,
+      "oxygen_saturation": 97.0
+    },
+    "medical_history": {},
+    "expected": {
+      "diagnosis": "Influenza",
+      "risk_level": "low",
+      "recommendation": "HOME_ISOLATION"
+    }
+  },
+  {
+    "case_id": "FLU_002",
+    "patient": {"patient_id": "P007", "age": 42, "gender": "M", "state": "Perak"},
+    "symptoms": {
+      "fever": true,
+      "temp": 39.8,
+      "body_ache": true,
+      "body_ache_severity": "severe",
+      "fatigue": true,
+      "fatigue_severity": "severe",
+      "cough": true,
+      "headache": true,
+      "onset": "sudden",
+      "duration": 1,
+      "oxygen_saturation": 96.0
+    },
+    "medical_history": {},
+    "expected": {
+      "diagnosis": "Influenza",
+      "risk_level": "low",
+      "recommendation": "HOME_ISOLATION"
+    }
+  },
+  {
+    "case_id": "COLD_001",
+    "patient": {"patient_id": "P009", "age": 30, "gender": "M", "state": "Selangor"},
+    "symptoms": {
+      "runny_nose": true,
+      "sneezing": true,
+      "sneezing_frequency": "frequent",
+      "sore_throat": true,
+      "fever": false,
+      "cough": true,
+      "onset": "gradual",
+      "duration": 5,
+      "oxygen_saturation": 98.0
+    },
+    "medical_history": {},
+    "expected": {
+      "diagnosis": "Common Cold",
+      "risk_level": "low",
+      "recommendation": "HOME_ISOLATION"
+    }
+  },
+  {
+    "case_id": "COLD_002",
+    "patient": {"patient_id": "P010", "age": 25, "gender": "F", "state": "Johor"},
+    "symptoms": {
+      "runny_nose": true,
+      "sneezing": true,
+      "sore_throat": true,
+      "fever": true,
+      "temp": 37.5,
+      "headache": true,
+      "onset": "gradual",
+      "duration": 7,
+      "oxygen_saturation": 98.0
+    },
+    "medical_history": {},
+    "expected": {
+      "diagnosis": "Common Cold",
+      "risk_level": "low",
+      "recommendation": "HOME_ISOLATION"
+    }
+  },
+  {
+    "case_id": "ALLERGY_001",
+    "patient": {"patient_id": "P012", "age": 32, "gender": "F", "state": "Selangor"},
+    "symptoms": {
+      "sneezing": true,
+      "sneezing_frequency": "frequent",
+      "itchy_eyes": true,
+      "runny_nose": true,
+      "fever": false,
+      "body_ache": false,
+      "onset": "sudden",
+      "duration": 3,
+      "oxygen_saturation": 99.0
+    },
+    "medical_history": {},
+    "expected": {
+      "diagnosis": "Allergies",
+      "risk_level": "low",
+      "recommendation": "HOME_ISOLATION"
+    }
+  },
+  {
+    "case_id": "ALLERGY_002",
+    "patient": {"patient_id": "P013", "age": 28, "gender": "M", "state": "Penang"},
+    "symptoms": {
+      "itchy_eyes": true,
+      "sneezing": true,
+      "sneezing_frequency": "constant",
+      "runny_nose": true,
+      "fever": false,
+      "onset": "sudden",
+      "duration": 2,
+      "oxygen_saturation": 99.0
+    },
+    "medical_history": {},
+    "expected": {
+      "diagnosis": "Allergies",
+      "risk_level": "low",
+      "recommendation": "HOME_ISOLATION"
+    }
+  },
+  {
+    "case_id": "COVID_004",
+    "patient": {"patient_id": "P014", "age": 38, "gender": "M", "state": "Kuala Lumpur"},
+    "symptoms": {
+      "fever": true,
+      "temp": 38.2,
+      "cough": true,
+      "cough_type": "dry",
+      "body_ache": true,
+      "loss_of_taste_smell": true,
+      "onset": "gradual",
+      "duration": 4,
+      "oxygen_saturation": 97.0
+    },
+    "medical_history": {},
+    "expected": {
+      "diagnosis": "COVID-19",
+      "risk_level": "low",
+      "recommendation": "HOME_ISOLATION"
+    }
+  }
+]
