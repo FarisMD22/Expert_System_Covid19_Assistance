@@ -1,0 +1,23 @@
+# CIDAS - COVID-19 Expert System Requirements
+# Compatible with Python 3.9, 3.10, 3.11+
+
+# Core Expert System
+experta==1.9.4
+frozendict==2.3.4
+
+# Fuzzy Logic
+scikit-fuzzy==0.4.2
+numpy>=1.21.0,<2.0.0
+
+# UI Framework
+streamlit>=1.28.0
+
+# Data Processing
+pandas>=1.5.0
+
+# Visualization
+plotly>=5.14.0
+matplotlib>=3.7.0
+
+# Testing
+pytest>=7.4.0
