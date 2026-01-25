@@ -1,23 +1,77 @@
-# CIDAS - COVID-19 Expert System Requirements
-# Compatible with Python 3.9, 3.10, 3.11+
+experta>=1.9.4
 
-# Core Expert System
-experta==1.9.4
-frozendict==2.3.4
+scikit-fuzzy>=0.4.2
 
-# Fuzzy Logic
-scikit-fuzzy==0.4.2
-numpy>=1.21.0,<2.0.0
+numpy>=1.21.0,<2.0
 
-# UI Framework
 streamlit>=1.28.0
 
-# Data Processing
 pandas>=1.5.0
 
-# Visualization
 plotly>=5.14.0
+
+
 matplotlib>=3.7.0
 
-# Testing
 pytest>=7.4.0
+# Unit testing framework for code validation
+
+# Additional Utility Libraries
+# ----------------------------------------------------------------------------
+# Note: The following are included with Python standard library
+# but listed here for reference:
+# - json (built-in)
+# - datetime (built-in)
+# - collections (built-in)
+
+# ============================================================================
+# INSTALLATION INSTRUCTIONS
+# ============================================================================
+#
+# Install all dependencies with:
+#   pip install -r requirements.txt
+#
+# Or for specific Python versions:
+#   python -m pip install -r requirements.txt
+#
+# For Python 3.10+:
+#   The code includes automatic compatibility patches for collections.Mapping
+#   No additional steps needed!
+#
+# Verify installation:
+#   python -c "import experta, streamlit, skfuzzy; print('✓ Success!')"
+#
+# ============================================================================
+# COMPATIBILITY
+# ============================================================================
+#
+# Tested with:
+#   - Python 3.9.x (Recommended)
+#   - Python 3.10.x (Auto-patched)
+#   - Python 3.11.x (Auto-patched)
+#   - Python 3.12.x (Auto-patched)
+#
+# Operating Systems:
+#   - Windows 10/11
+#   - macOS 10.14+
+#   - Linux (Ubuntu 20.04+)
+#
+# ============================================================================
+# TROUBLESHOOTING
+# ============================================================================
+#
+# Issue: Dependency conflicts
+# Solution:
+#   pip uninstall experta frozendict -y
+#   pip install -r requirements.txt
+#
+# Issue: numpy 2.x installed
+# Solution:
+#   pip uninstall numpy -y
+#   pip install "numpy<2.0"
+#
+# Issue: Permission denied
+# Solution:
+#   pip install --user -r requirements.txt
+#
+# ============================================================================
