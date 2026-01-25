@@ -1,7 +1,7 @@
 ================================================================================
 CIDAS EXPERT SYSTEM - EVALUATION REPORT
 ================================================================================
-Generated: 2026-01-25 12:44:08
+Generated: 2026-01-25 12:46:07
 
 ================================================================================
 SECTION 1: VERIFICATION (Internal Consistency)
@@ -38,6 +38,12 @@ SECTION 3: EVALUATION (Performance Metrics)
 
 Per-Class Metrics:
 
+  Influenza:
+    Precision: 100.00%
+    Recall: 100.00%
+    F1-Score: 100.00%
+    Support: 2 cases
+
   COVID-19:
     Precision: 100.00%
     Recall: 100.00%
@@ -56,23 +62,17 @@ Per-Class Metrics:
     F1-Score: 100.00%
     Support: 2 cases
 
-  Influenza:
-    Precision: 100.00%
-    Recall: 100.00%
-    F1-Score: 100.00%
-    Support: 2 cases
-
   Macro-Average:
     Precision: 100.00%
     Recall: 100.00%
     F1-Score: 100.00%
 
 Confusion Matrix:
-             COVID-19  Common Cold  Allergies  Influenza
-COVID-19            4            0          0          0
-Common Cold         0            2          0          0
-Allergies           0            0          2          0
-Influenza           0            0          0          2
+             Influenza  COVID-19  Common Cold  Allergies
+Influenza            2         0            0          0
+COVID-19             0         4            0          0
+Common Cold          0         0            2          0
+Allergies            0         0            0          2
 
 ================================================================================
 SUMMARY
