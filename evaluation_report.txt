@@ -1,7 +1,7 @@
 ================================================================================
 CIDAS EXPERT SYSTEM - EVALUATION REPORT
 ================================================================================
-Generated: 2026-01-25 12:41:39
+Generated: 2026-01-25 12:44:08
 
 ================================================================================
 SECTION 1: VERIFICATION (Internal Consistency)
@@ -23,8 +23,56 @@ Fact Integrity Checks:
 SECTION 2: VALIDATION (External Accuracy)
 ================================================================================
 
-ERROR: Could not load or process test cases
-Please ensure test_cases.json exists and is properly formatted
+Test Cases:
+  Total: 10
+
+Module Accuracy:
+  Diagnosis: 100.00%
+  Risk Assessment: 70.00%
+  Recommendation: 50.00%
+  Overall: 73.33%
+
+================================================================================
+SECTION 3: EVALUATION (Performance Metrics)
+================================================================================
+
+Per-Class Metrics:
+
+  COVID-19:
+    Precision: 100.00%
+    Recall: 100.00%
+    F1-Score: 100.00%
+    Support: 4 cases
+
+  Common Cold:
+    Precision: 100.00%
+    Recall: 100.00%
+    F1-Score: 100.00%
+    Support: 2 cases
+
+  Allergies:
+    Precision: 100.00%
+    Recall: 100.00%
+    F1-Score: 100.00%
+    Support: 2 cases
+
+  Influenza:
+    Precision: 100.00%
+    Recall: 100.00%
+    F1-Score: 100.00%
+    Support: 2 cases
+
+  Macro-Average:
+    Precision: 100.00%
+    Recall: 100.00%
+    F1-Score: 100.00%
+
+Confusion Matrix:
+             COVID-19  Common Cold  Allergies  Influenza
+COVID-19            4            0          0          0
+Common Cold         0            2          0          0
+Allergies           0            0          2          0
+Influenza           0            0          0          2
 
 ================================================================================
 SUMMARY
@@ -37,6 +85,7 @@ System Components:
   - Total: 62 expert rules
 
 Verification Status: PASSED
-Validation: Could not complete (check test_cases.json)
+Validation Accuracy: 73.33%
+Evaluation F1-Score: 100.00%
 
 ================================================================================
