@@ -31,7 +31,7 @@
 
 ### 1. Install Dependencies
 ```powershell
-pip install experta scikit-fuzzy "numpy<2.0" streamlit pandas plotly matplotlib
+pip install streamlit pandas plotly experta numpy scikit-fuzzy scipy networkx
 ```
 
 ### 2. Run Web Application
