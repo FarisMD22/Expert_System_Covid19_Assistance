@@ -370,6 +370,8 @@ def calculate_symptom_severity(symptom_data: dict) -> float:
     Calculate aggregated symptom severity score (0-100)
 
     Severity weights:
+    - CRITICAL OXYGEN (oxygen_saturation < 90%): +30 points (EMERGENCY)
+    - Low oxygen (oxygen_saturation < 94%): +20 points
     - Critical symptoms (shortness_of_breath, chest_pain): 15 points each
     - Major symptoms (fever, loss_of_taste_smell): 10 points each
     - Moderate symptoms (cough, fatigue, body_ache): 7 points each
@@ -383,10 +385,19 @@ def calculate_symptom_severity(symptom_data: dict) -> float:
 
     Example:
         symptoms = {"fever": True, "temp": 39.0, "cough": True,
-                   "shortness_of_breath": True}
-        score = calculate_symptom_severity(symptoms)  # Returns ~37
+                   "shortness_of_breath": True, "oxygen_saturation": 88}
+        score = calculate_symptom_severity(symptoms)  # Returns ~67 (CRITICAL!)
     """
     score = 0.0
+
+    # CRITICAL: Oxygen Saturation (Most important - checked first!)
+    oxygen = symptom_data.get('oxygen_saturation', 98.0)
+    if oxygen < 90.0:
+        score += 30  # EMERGENCY - immediate hospitalization
+    elif oxygen < 94.0:
+        score += 20  # Concerning - needs medical attention
+    elif oxygen < 95.0:
+        score += 10  # Borderline - monitor closely
 
     # Critical symptoms (15 points each)
     if symptom_data.get('shortness_of_breath'):

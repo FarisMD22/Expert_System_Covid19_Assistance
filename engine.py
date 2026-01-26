@@ -1006,6 +1006,39 @@ class SeverityEngine(KnowledgeEngine):
         ))
         self.fired_rules.append("SH-008: High + multiple comorbidities → Hospital")
 
+    @Rule(
+        RiskAssessment(level="high"),
+        Patient(age=P(lambda x: x >= 65)),
+        salience=80
+    )
+    def high_elderly_general(self):
+        """SH-018: High risk + elderly (65+) → Hospital or Monitored"""
+        self.declare(Recommendation(
+            action="HOME_CARE_MONITORED",
+            urgency="URGENT",
+            follow_up="24_HOURS",
+            explanation="Elderly patient with high risk - close monitoring required. Hospital if symptoms worsen.",
+            testing_recommended=True,
+            rule_id="SH-018"
+        ))
+        self.fired_rules.append("SH-018: High + age 65+ → Monitored/Hospital")
+
+    @Rule(
+        RiskAssessment(level="high"),
+        salience=50
+    )
+    def high_general_fallback(self):
+        """SH-019: General high risk → Monitored care (fallback)"""
+        self.declare(Recommendation(
+            action="HOME_CARE_MONITORED",
+            urgency="URGENT",
+            follow_up="24_HOURS",
+            explanation="High risk level requires close monitoring. Seek immediate care if symptoms worsen.",
+            testing_recommended=True,
+            rule_id="SH-019"
+        ))
+        self.fired_rules.append("SH-019: High risk general → Monitored")
+
     # TODO: Add SH-007 and SH-008 for high risk
     # Examples: High + pregnancy, High + multiple comorbidities
 
@@ -1114,6 +1147,22 @@ class SeverityEngine(KnowledgeEngine):
             rule_id="SH-012"
         ))
         self.fired_rules.append("SH-012: Medium standard → Monitored home care")
+
+    @Rule(
+        RiskAssessment(level="medium"),
+        salience=40
+    )
+    def medium_general_fallback(self):
+        """SH-020: General medium risk → Home care monitored (fallback)"""
+        self.declare(Recommendation(
+            action="HOME_CARE_MONITORED",
+            urgency="MODERATE",
+            follow_up="48_HOURS",
+            explanation="Moderate risk - home care with monitoring. Contact healthcare if symptoms worsen.",
+            testing_recommended=True,
+            rule_id="SH-020"
+        ))
+        self.fired_rules.append("SH-020: Medium risk general → Home monitored")
 
     @Rule(
         RiskAssessment(level="low"),
