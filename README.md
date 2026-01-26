@@ -35,8 +35,13 @@ pip install streamlit pandas plotly experta numpy scikit-fuzzy scipy networkx
 ```
 
 ### 2. Run Web Application
+Option A:
 ```powershell
 streamlit run app.py
+```
+Option B - use this if you don't have streamlit downloaded on your system:
+```powershell
+python -m streamlit run app.py
 ```
 Opens at `http://localhost:8501`
 
@@ -127,11 +132,6 @@ cidas_complete/
 - KKM severity categories (1-5)
 - Emergency hotlines (999, COVID hotline)
 - Local testing guidelines
-
-### Bilingual Support
-- English + Bahasa Malaysia
-- 100+ phrases translated
-- Real-time language switching
 
 ### Explainable AI
 - Clinical reasoning for all decisions
