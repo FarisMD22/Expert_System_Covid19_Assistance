@@ -37,7 +37,7 @@ from config import *
 # ============================================================================
 
 st.set_page_config(
-    page_title="CIDAS - COVID-19 Expert System",
+    page_title="CIDAS - COVID-19 Intelligent Diagnostic & Assessment System",
     page_icon="🏥",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -168,7 +168,7 @@ def render_sidebar():
         st.markdown("---")
 
         # Language selection
-        st.subheader("⚙️ " + t("nav_settings"))
+        st.subheader("" + t("Navigation Settings"))
         lang_options = {"English": "en", "Bahasa Malaysia": "ms"}
         selected_lang = st.selectbox(
             "Language / Bahasa",
@@ -180,7 +180,7 @@ def render_sidebar():
         st.markdown("---")
 
         # Navigation
-        st.subheader("📍 Navigation")
+        st.subheader("Navigation")
         page = st.radio(
             "Go to",
             [
@@ -197,7 +197,7 @@ def render_sidebar():
         st.markdown("---")
 
         # Emergency contacts
-        st.subheader("🚨 Emergency Contacts")
+        st.subheader("Emergency Contacts")
         st.markdown(f"""
         **National Emergency:** {get_emergency_number('national')}  
         **COVID-19 Hotline:** {get_emergency_number('covid_hotline')}  
@@ -230,7 +230,7 @@ def page_home():
     with col1:
         st.markdown("""
         <div class='metric-card'>
-            <h3>🔬 Differential Diagnosis</h3>
+            <h3>Differential Diagnosis</h3>
             <p>27 diagnostic rules</p>
             <p>Distinguishes COVID-19, Influenza, Common Cold, Allergies</p>
         </div>
@@ -239,7 +239,7 @@ def page_home():
     with col2:
         st.markdown("""
         <div class='metric-card'>
-            <h3>📊 Risk Assessment</h3>
+            <h3>Risk Assessment</h3>
             <p>20 fuzzy logic rules</p>
             <p>Low, Medium, High, Critical risk classification</p>
         </div>
@@ -248,7 +248,7 @@ def page_home():
     with col3:
         st.markdown("""
         <div class='metric-card'>
-            <h3>🏥 Care Pathway</h3>
+            <h3>Care Pathway</h3>
             <p>15 hospitalization rules</p>
             <p>Evidence-based recommendations with Malaysian integration</p>
         </div>
@@ -257,9 +257,9 @@ def page_home():
     st.markdown("---")
 
     # How to use
-    st.subheader("📖 How to Use This System")
+    st.subheader("How to Use This System")
 
-    with st.expander("1️⃣ Input Symptoms & Information", expanded=True):
+    with st.expander("Input Symptoms & Information", expanded=True):
         st.markdown("""
         Navigate to the **Diagnosis** page and enter:
         - Patient demographics (age, gender, state)
@@ -268,7 +268,7 @@ def page_home():
         - Exposure history (if applicable)
         """)
 
-    with st.expander("2️⃣ Review Diagnosis"):
+    with st.expander(" Review Diagnosis"):
         st.markdown("""
         The system will analyze symptoms using 27 expert rules and provide:
         - Most likely condition with confidence level
@@ -276,7 +276,7 @@ def page_home():
         - Clinical reasoning and evidence
         """)
 
-    with st.expander("3️⃣ Check Risk Assessment"):
+    with st.expander("Check Risk Assessment"):
         st.markdown("""
         Fuzzy logic analysis considering:
         - Fever level and symptom count
@@ -285,7 +285,7 @@ def page_home():
         - Overall risk score (0-100)
         """)
 
-    with st.expander("4️⃣ Follow Care Recommendations"):
+    with st.expander(" Follow Care Recommendations"):
         st.markdown("""
         Receive personalized care pathway:
         - Home isolation, monitored care, hospitalization, or ICU
@@ -299,7 +299,7 @@ def page_home():
     # Disclaimer
     st.markdown(f"""
     <div class='danger-box'>
-        <h4>⚠️ Medical Disclaimer</h4>
+        <h4>Medical Disclaimer</h4>
         <p>{t('disclaimer')}</p>
     </div>
     """, unsafe_allow_html=True)
@@ -307,7 +307,7 @@ def page_home():
     # Quick stats
     if st.session_state.assessment_history:
         st.markdown("---")
-        st.subheader("📈 Your Usage Statistics")
+        st.subheader("Your Usage Statistics")
         col1, col2, col3 = st.columns(3)
         with col1:
             st.metric("Total Assessments", len(st.session_state.assessment_history))
@@ -325,7 +325,7 @@ def page_home():
 
 def page_diagnosis():
     """Diagnosis page with symptom input and analysis"""
-    st.markdown(f"<div class='sub-header'>🔬 {t('nav_diagnosis')}</div>", unsafe_allow_html=True)
+    st.markdown(f"{t('nav_diagnosis')}</div>", unsafe_allow_html=True)
 
     st.markdown("---")
 
@@ -522,7 +522,7 @@ def page_diagnosis():
 
                 st.markdown(f"""
                 <div class='success-box'>
-                    <h3>🔬 {t('diagnosis')}</h3>
+                    <h3> {t('diagnosis')}</h3>
                     <h2>{top_condition}</h2>
                     <p><strong>{t('confidence')}:</strong> {int(top_confidence * 100)}%</p>
                     <p><small>Rule: {top_rule}</small></p>
@@ -586,7 +586,7 @@ def page_diagnosis():
 
                 save_assessment(patient_data, results, risk, None)
 
-                st.info("💡 Navigate to **Risk Assessment** page to see detailed risk analysis")
+                st.info(" Navigate to **Risk Assessment** page to see detailed risk analysis")
 
             else:
                 st.warning(t('msg_no_diagnosis'))
@@ -598,10 +598,10 @@ def page_diagnosis():
 
 def page_risk_assessment():
     """Risk assessment page with fuzzy logic analysis"""
-    st.markdown(f"<div class='sub-header'>📊 {t('nav_risk')}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='sub-header'> {t('nav_risk')}</div>", unsafe_allow_html=True)
 
     if not st.session_state.current_assessment:
-        st.info("👈 Please complete a diagnosis first")
+        st.info("Please complete a diagnosis first")
         return
 
     assessment = st.session_state.current_assessment
@@ -617,7 +617,7 @@ def page_risk_assessment():
     # Show warning if there was an error in calculation
     if 'error' in risk:
         st.warning(
-            f"⚠️ Note: Risk calculation encountered an issue. Showing conservative medium risk estimate. ({risk['error']})")
+            f" Note: Risk calculation encountered an issue. Showing conservative medium risk estimate. ({risk['error']})")
 
     st.markdown(f"""
     <div style='background-color: {risk_color}; padding: 2rem; border-radius: 1rem; color: white; text-align: center;'>
@@ -643,15 +643,15 @@ def page_risk_assessment():
     col1, col2, col3, col4, col5 = st.columns(5)
 
     with col1:
-        st.metric("🌡️ Fever", f"{inputs.get('fever', 0):.1f}°C")
+        st.metric("Fever", f"{inputs.get('fever', 0):.1f}°C")
     with col2:
-        st.metric("📋 Symptoms", inputs.get('symptoms', 0))
+        st.metric("Symptoms", inputs.get('symptoms', 0))
     with col3:
-        st.metric("⚠️ Severity", f"{inputs.get('severity', 0):.0f}/100")
+        st.metric("Severity", f"{inputs.get('severity', 0):.0f}/100")
     with col4:
-        st.metric("👤 Age", f"{inputs.get('age', 0)} yrs")
+        st.metric("Age", f"{inputs.get('age', 0)} yrs")
     with col5:
-        st.metric("🏥 Comorbidity", f"{inputs.get('comorbidity', 0):.1f}/10")
+        st.metric("Comorbidity", f"{inputs.get('comorbidity', 0):.1f}/10")
 
     # Gauge chart
     fig = go.Figure(go.Indicator(
@@ -687,7 +687,7 @@ def page_risk_assessment():
     if risk_level == 'critical':
         st.markdown("""
         <div class='danger-box'>
-            <h4>🚨 CRITICAL RISK (80-100)</h4>
+            <h4> CRITICAL RISK (80-100)</h4>
             <ul>
                 <li>Immediate medical evaluation required</li>
                 <li>High risk of severe complications</li>
@@ -699,7 +699,7 @@ def page_risk_assessment():
     elif risk_level == 'high':
         st.markdown("""
         <div class='warning-box'>
-            <h4>⚠️ HIGH RISK (65-80)</h4>
+            <h4> HIGH RISK (65-80)</h4>
             <ul>
                 <li>Urgent medical consultation recommended</li>
                 <li>Increased risk of complications</li>
@@ -711,7 +711,7 @@ def page_risk_assessment():
     elif risk_level == 'medium':
         st.markdown("""
         <div class='info-box'>
-            <h4>ℹ️ MEDIUM RISK (35-65)</h4>
+            <h4> MEDIUM RISK (35-65)</h4>
             <ul>
                 <li>Medical consultation recommended</li>
                 <li>Moderate risk of complications</li>
@@ -723,7 +723,7 @@ def page_risk_assessment():
     else:
         st.markdown("""
         <div class='success-box'>
-            <h4>✅ LOW RISK (0-35)</h4>
+            <h4> LOW RISK (0-35)</h4>
             <ul>
                 <li>Standard home care appropriate</li>
                 <li>Low risk of severe complications</li>
@@ -733,7 +733,7 @@ def page_risk_assessment():
         </div>
         """, unsafe_allow_html=True)
 
-    st.info("💡 Navigate to **Care Pathway** page for personalized recommendations")
+    st.info(" Navigate to **Care Pathway** page for personalized recommendations")
 
 
 # ============================================================================
@@ -742,13 +742,13 @@ def page_risk_assessment():
 
 def page_care_pathway():
     """Care pathway recommendations with hospital finder"""
-    st.markdown(f"<div class='sub-header'>🏥 {t('nav_care')}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='sub-header'> {t('nav_care')}</div>", unsafe_allow_html=True)
 
     if not st.session_state.current_assessment:
         st.markdown("---")
         st.markdown("""
         <div class='info-box'>
-            <h3>📋 How to Get Your Care Recommendation</h3>
+            <h3> How to Get Your Care Recommendation</h3>
             <p><strong>Follow these 3 steps:</strong></p>
             <ol>
                 <li><strong>Go to Diagnosis page</strong> → Enter your symptoms and medical information</li>
@@ -756,7 +756,7 @@ def page_care_pathway():
                 <li><strong>Navigate to Risk Assessment</strong> → View your risk level</li>
                 <li><strong>Return to this page</strong> → Your care recommendation will appear automatically!</li>
             </ol>
-            <p style='margin-top: 1rem;'><em>💡 Tip: Complete the diagnosis first, then your care pathway will be ready here.</em></p>
+            <p style='margin-top: 1rem;'><em> Tip: Complete the diagnosis first, then your care pathway will be ready here.</em></p>
         </div>
         """, unsafe_allow_html=True)
 
@@ -764,8 +764,8 @@ def page_care_pathway():
         st.markdown("<br>", unsafe_allow_html=True)
         col1, col2, col3 = st.columns([1, 1, 1])
         with col2:
-            if st.button("🔬 Go to Diagnosis Page", type="primary", use_container_width=True):
-                st.info("👈 Use the sidebar to navigate to Diagnosis page")
+            if st.button(" Go to Diagnosis Page", type="primary", use_container_width=True):
+                st.info(" Use the sidebar to navigate to Diagnosis page")
 
         return
 
@@ -775,7 +775,7 @@ def page_care_pathway():
 
     # Check if risk assessment exists
     if not risk:
-        st.warning("⚠️ Risk assessment not found. Please complete the Risk Assessment page first.")
+        st.warning(" Risk assessment not found. Please complete the Risk Assessment page first.")
         return
 
     st.markdown("---")
@@ -831,17 +831,14 @@ def page_care_pathway():
         # Display recommendation
         if urgency == "EMERGENCY":
             box_class = 'danger-box'
-            icon = "🚨"
         elif urgency == "URGENT":
             box_class = 'warning-box'
-            icon = "⚠️"
         else:
             box_class = 'info-box'
-            icon = "ℹ️"
 
         st.markdown(f"""
         <div class='{box_class}'>
-            <h2>{icon} {action.replace('_', ' ').title()}</h2>
+            <h2>{action.replace('_', ' ').title()}</h2>
             <h4>Urgency: {urgency}</h4>
             <p>{recommendation.get('explanation', '')}</p>
         </div>
@@ -850,7 +847,7 @@ def page_care_pathway():
         st.markdown("---")
 
         # What to do
-        st.subheader("📋 What To Do")
+        st.subheader("What To Do")
 
         if action == "IMMEDIATE_HOSPITALIZATION":
             st.markdown("""
@@ -925,7 +922,7 @@ def page_care_pathway():
 
         # Hospital finder
         if action in ["IMMEDIATE_HOSPITALIZATION", "HOSPITALIZATION"]:
-            st.subheader(f"🏥 {t('nearest_hospitals')}")
+            st.subheader(f"{t('nearest_hospitals')}")
 
             state = patient['state']
             hospitals = get_hospitals_by_state(state)
@@ -940,7 +937,7 @@ def page_care_pathway():
             st.markdown("---")
 
             # Emergency contacts
-            st.subheader("📞 Emergency Contacts")
+            st.subheader("Emergency Contacts")
             st.markdown(f"""
             - **Emergency:** {get_emergency_number('national')}
             - **COVID-19 Hotline:** {get_emergency_number('covid_hotline')}
@@ -952,7 +949,7 @@ def page_care_pathway():
         st.markdown("---")
         st.markdown("""
         <div class='warning-box'>
-            <h3>⚠️ Unable to Generate Specific Recommendation</h3>
+            <h3>Unable to Generate Specific Recommendation</h3>
             <p>We couldn't generate a detailed care recommendation based on your current data.</p>
             <p><strong>Possible reasons:</strong></p>
             <ul>
@@ -992,16 +989,16 @@ def page_care_pathway():
             st.subheader("General Care Guidance")
             if risk_level == 'critical' or risk_level == 'high':
                 st.error(
-                    "🚨 **High/Critical Risk:** Please seek medical attention immediately. Call 999 or go to nearest hospital.")
+                    " **High/Critical Risk:** Please seek medical attention immediately. Call 999 or go to nearest hospital.")
             elif risk_level == 'medium':
                 st.warning(
-                    "⚠️ **Medium Risk:** Consult a healthcare provider within 24-48 hours. Monitor symptoms closely.")
+                    " **Medium Risk:** Consult a healthcare provider within 24-48 hours. Monitor symptoms closely.")
             else:
-                st.info("ℹ️ **Low Risk:** Self-monitor at home. Seek care if symptoms worsen.")
+                st.info("**Low Risk:** Self-monitor at home. Seek care if symptoms worsen.")
 
         # Emergency contacts always shown
         st.markdown("---")
-        st.subheader("📞 Emergency Contacts")
+        st.subheader(" Emergency Contacts")
         st.markdown(f"""
         - **Emergency:** {get_emergency_number('national')}
         - **COVID-19 Hotline:** {get_emergency_number('covid_hotline')}
@@ -1015,7 +1012,7 @@ def page_care_pathway():
 
 def page_history():
     """Assessment history tracking"""
-    st.markdown(f"<div class='sub-header'>📈 {t('nav_history')}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='sub-header'>{t('nav_history')}</div>", unsafe_allow_html=True)
 
     if not st.session_state.assessment_history:
         st.info("No assessment history yet. Complete a diagnosis to start tracking.")
@@ -1088,7 +1085,7 @@ def page_history():
         st.plotly_chart(fig, use_container_width=True)
 
     # Clear history button
-    if st.button("🗑️ Clear History", type="secondary"):
+    if st.button("Clear History", type="secondary"):
         st.session_state.assessment_history = []
         st.session_state.current_assessment = None
         st.rerun()
@@ -1100,7 +1097,7 @@ def page_history():
 
 def page_about():
     """About page with system information"""
-    st.markdown(f"<div class='sub-header'>ℹ️ {t('nav_about')}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='sub-header'> {t('nav_about')}</div>", unsafe_allow_html=True)
 
     st.markdown("---")
 
@@ -1171,7 +1168,7 @@ def page_about():
     # Disclaimer
     st.markdown(f"""
     <div class='danger-box'>
-        <h4>⚠️ Important Disclaimer</h4>
+        <h4> Important Disclaimer</h4>
         <p>{t('disclaimer')}</p>
     </div>
     """, unsafe_allow_html=True)
@@ -1181,9 +1178,9 @@ def page_about():
     # Credits
     st.subheader("Credits")
     st.markdown("""
-    **Developed by:** TES6313 Expert Systems Project Team  
-    **Course:** TES6313 Expert Systems  
-    **Date:** 2025  
+    **Developed by:** https://github.com/FarisMD22  
+    **Course:** TES6313 Expert Systems At MMU, Malaysia  
+    **Date:** 2026  
     **Technology Stack:** Python, Experta, scikit-fuzzy, Streamlit  
 
     **Special Thanks:**
