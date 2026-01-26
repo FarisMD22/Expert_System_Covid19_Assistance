@@ -17,8 +17,9 @@ Streamlit Web Application
 A comprehensive expert system for COVID-19 diagnosis, risk assessment,
 and care pathway recommendations with Malaysian healthcare integration.
 
-Author: TES6313 Project
-Date: 2025
+Author: https://github.com/FarisMD22  
+
+Date: 2026
 """
 
 import streamlit as st
@@ -299,7 +300,7 @@ def page_home():
     # Disclaimer
     st.markdown(f"""
     <div class='danger-box'>
-        <h4>Medical Disclaimer</h4>
+        <h4> Medical Disclaimer</h4>
         <p>{t('disclaimer')}</p>
     </div>
     """, unsafe_allow_html=True)

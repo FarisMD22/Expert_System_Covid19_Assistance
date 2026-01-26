@@ -192,12 +192,12 @@ TRANSLATIONS = {
         "welcome": "Welcome to CIDAS",
 
         # Navigation
-        "nav_home": "🏠 Home",
-        "nav_diagnosis": "🔍 Diagnosis",
-        "nav_risk": "📊 Risk Assessment",
-        "nav_care": "🏥 Care Pathway",
-        "nav_history": "📈 History",
-        "nav_about": "ℹ️ About",
+        "nav_home": "Home",
+        "nav_diagnosis": "Diagnosis",
+        "nav_risk": "Risk Assessment",
+        "nav_care": "Care Pathway",
+        "nav_history": "History",
+        "nav_about": "About",
 
         # Patient Information
         "patient_info": "Patient Information",
@@ -307,7 +307,7 @@ TRANSLATIONS = {
         "nearest_hospitals": "Nearest COVID-19 Hospitals",
 
         # Disclaimer
-        "disclaimer": "⚠️ This is an educational expert system and should NOT replace professional medical advice. Always consult healthcare professionals for medical decisions.",
+        "disclaimer": "This is an educational expert system and should NOT replace professional medical advice. Always consult healthcare professionals for medical decisions.",
         "disclaimer_short": "Not a substitute for professional medical advice"
     },
 
@@ -318,12 +318,12 @@ TRANSLATIONS = {
         "welcome": "Selamat Datang ke CIDAS",
 
         # Navigation
-        "nav_home": "🏠 Laman Utama",
-        "nav_diagnosis": "🔍 Diagnosis",
-        "nav_risk": "📊 Penilaian Risiko",
-        "nav_care": "🏥 Laluan Penjagaan",
-        "nav_history": "📈 Sejarah",
-        "nav_about": "ℹ️ Tentang",
+        "nav_home": "Laman Utama",
+        "nav_diagnosis": "Diagnosis",
+        "nav_risk": "Penilaian Risiko",
+        "nav_care": "Laluan Penjagaan",
+        "nav_history": "Sejarah",
+        "nav_about": "Tentang",
 
         # Patient Information
         "patient_info": "Maklumat Pesakit",
@@ -433,7 +433,7 @@ TRANSLATIONS = {
         "nearest_hospitals": "Hospital COVID-19 Berdekatan",
 
         # Disclaimer
-        "disclaimer": "⚠️ Ini adalah sistem pakar pendidikan dan TIDAK sepatutnya menggantikan nasihat perubatan profesional. Sentiasa rujuk profesional kesihatan untuk keputusan perubatan.",
+        "disclaimer": "Ini adalah sistem pakar pendidikan dan TIDAK sepatutnya menggantikan nasihat perubatan profesional. Sentiasa rujuk profesional kesihatan untuk keputusan perubatan.",
         "disclaimer_short": "Bukan pengganti nasihat perubatan profesional"
     }
 }
