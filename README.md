@@ -39,7 +39,7 @@ Option A:
 ```powershell
 streamlit run app.py
 ```
-Option B (if you ran into issues):
+Option B - use this if you don't have streamlit downloaded on your system:
 ```powershell
 python -m streamlit run app.py
 ```
