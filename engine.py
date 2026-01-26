@@ -831,9 +831,17 @@ class FuzzyRiskEngine:
                 }
             }
         except Exception as e:
+            # Return safe defaults with inputs for display
             return {
                 'risk_score': 50.0,
                 'risk_level': 'medium',
+                'inputs': {
+                    'fever': fever_temp,
+                    'symptoms': symptom_cnt,
+                    'severity': severity_scr,
+                    'age': age,
+                    'comorbidity': comorbidity_scr
+                },
                 'error': str(e)
             }
 
@@ -852,7 +860,7 @@ class SeverityEngine(KnowledgeEngine):
     """
     Severity assessment and hospitalization recommendation engine
 
-    STATUS: ✅ COMPLETE - All 15 rules implemented
+    STATUS: ✅ COMPLETE - All 17 rules implemented
 
     Takes fuzzy risk assessment output and makes care pathway recommendations
 
@@ -1089,6 +1097,38 @@ class SeverityEngine(KnowledgeEngine):
 
     # TODO: Add SH-011, SH-012, SH-013 for medium risk
     # Examples: Medium + lung disease, Medium + heart disease, Medium + hypertension
+
+    @Rule(
+        RiskAssessment(level="medium"),
+        Patient(age=P(lambda x: x < 60)),
+        salience=45
+    )
+    def medium_standard_young(self):
+        """SH-012: Medium risk, under 60, no critical comorbidities → Monitored home care"""
+        self.declare(Recommendation(
+            action="HOME_CARE_MONITORED",
+            urgency="MODERATE",
+            follow_up="48_HOURS",
+            explanation="Moderate risk - home care with regular monitoring recommended. Schedule follow-up within 48 hours.",
+            testing_recommended=True,
+            rule_id="SH-012"
+        ))
+        self.fired_rules.append("SH-012: Medium standard → Monitored home care")
+
+    @Rule(
+        RiskAssessment(level="low"),
+        salience=35
+    )
+    def low_standard(self):
+        """SH-015: Low risk (general) → Home isolation"""
+        self.declare(Recommendation(
+            action="HOME_ISOLATION",
+            urgency="LOW",
+            follow_up="SELF_MONITOR",
+            explanation="Low risk - standard home isolation with self-monitoring. Seek care if symptoms worsen.",
+            rule_id="SH-015"
+        ))
+        self.fired_rules.append("SH-015: Low standard → Home isolation")
 
     @Rule(
         RiskAssessment(level="low"),

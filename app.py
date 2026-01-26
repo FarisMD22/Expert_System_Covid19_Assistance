@@ -543,7 +543,7 @@ def page_diagnosis():
                     go.Bar(
                         x=[c for c, _, _ in results],
                         y=[conf * 100 for _, conf, _ in results],
-                        marker_color = ['#28a745', '#ffc107', '#fd7e14', '#6c757d'][:len(results)]
+                        marker_color=['#28a745', '#ffc107', '#fd7e14', '#6c757d'][:len(results)]
                     )
                 ])
                 fig.update_layout(
@@ -614,6 +614,11 @@ def page_risk_assessment():
     risk_score = risk['risk_score']
     risk_color = get_risk_color(risk_level)
 
+    # Show warning if there was an error in calculation
+    if 'error' in risk:
+        st.warning(
+            f"⚠️ Note: Risk calculation encountered an issue. Showing conservative medium risk estimate. ({risk['error']})")
+
     st.markdown(f"""
     <div style='background-color: {risk_color}; padding: 2rem; border-radius: 1rem; color: white; text-align: center;'>
         <h1>{t(f'risk_{risk_level}')}</h1>
@@ -626,7 +631,14 @@ def page_risk_assessment():
     # Risk factors breakdown
     st.subheader("Contributing Factors")
 
-    inputs = risk['inputs']
+    # Get inputs safely (may not exist if there was an error)
+    inputs = risk.get('inputs', {
+        'fever': 37.0,
+        'symptoms': 0,
+        'severity': 0,
+        'age': 0,
+        'comorbidity': 0
+    })
 
     col1, col2, col3, col4, col5 = st.columns(5)
 
@@ -733,38 +745,84 @@ def page_care_pathway():
     st.markdown(f"<div class='sub-header'>🏥 {t('nav_care')}</div>", unsafe_allow_html=True)
 
     if not st.session_state.current_assessment:
-        st.info("👈 Please complete a diagnosis and risk assessment first")
+        st.markdown("---")
+        st.markdown("""
+        <div class='info-box'>
+            <h3>📋 How to Get Your Care Recommendation</h3>
+            <p><strong>Follow these 3 steps:</strong></p>
+            <ol>
+                <li><strong>Go to Diagnosis page</strong> → Enter your symptoms and medical information</li>
+                <li><strong>Click "Diagnose"</strong> → Get your diagnosis result</li>
+                <li><strong>Navigate to Risk Assessment</strong> → View your risk level</li>
+                <li><strong>Return to this page</strong> → Your care recommendation will appear automatically!</li>
+            </ol>
+            <p style='margin-top: 1rem;'><em>💡 Tip: Complete the diagnosis first, then your care pathway will be ready here.</em></p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        # Quick start button
+        st.markdown("<br>", unsafe_allow_html=True)
+        col1, col2, col3 = st.columns([1, 1, 1])
+        with col2:
+            if st.button("🔬 Go to Diagnosis Page", type="primary", use_container_width=True):
+                st.info("👈 Use the sidebar to navigate to Diagnosis page")
+
         return
 
     assessment = st.session_state.current_assessment
-    risk = assessment['risk']
-    patient = assessment['patient']
+    risk = assessment.get('risk')
+    patient = assessment.get('patient')
+
+    # Check if risk assessment exists
+    if not risk:
+        st.warning("⚠️ Risk assessment not found. Please complete the Risk Assessment page first.")
+        return
 
     st.markdown("---")
 
     # Generate recommendation
-    severity_engine = SeverityEngine()
-    severity_engine.reset()
+    try:
+        severity_engine = SeverityEngine()
+        severity_engine.reset()
 
-    # Declare facts
-    severity_engine.declare(RiskAssessment(
-        level=risk['risk_level'],
-        score=risk['risk_score']
-    ))
+        # Declare facts
+        severity_engine.declare(RiskAssessment(
+            level=risk['risk_level'],
+            score=risk['risk_score']
+        ))
 
-    # Add medical history if critical
-    if patient['medical_history'].get('diabetes'):
-        severity_engine.declare(MedicalHistory(diabetes=True))
-    if patient['medical_history'].get('heart_disease'):
-        severity_engine.declare(MedicalHistory(heart_disease=True))
+        # Add medical history if available
+        medical_history = patient.get('medical_history', {})
+        if medical_history:
+            if medical_history.get('diabetes'):
+                severity_engine.declare(MedicalHistory(diabetes=True))
+            if medical_history.get('heart_disease'):
+                severity_engine.declare(MedicalHistory(heart_disease=True))
+            if medical_history.get('lung_disease'):
+                severity_engine.declare(MedicalHistory(lung_disease=True))
+            if medical_history.get('pregnancy'):
+                severity_engine.declare(MedicalHistory(pregnancy=True))
 
-    # Add patient age
-    severity_engine.declare(Patient(age=patient['age']))
+        # Add patient age
+        severity_engine.declare(Patient(age=patient.get('age', 30)))
 
-    # Run engine
-    severity_engine.run()
+        # Add diagnosis if available
+        diagnosis = assessment.get('diagnosis')
+        if diagnosis and len(diagnosis) > 0:
+            diagnosis_condition = diagnosis[0][0]  # Get top diagnosis
+            # Only declare if it's COVID-19 (for COVID-specific rules)
+            if 'COVID' in diagnosis_condition:
+                severity_engine.declare(Symptom(fever=True))  # Trigger COVID rules
 
-    recommendation = severity_engine.get_recommendation()
+        # Run engine
+        severity_engine.run()
+
+        recommendation = severity_engine.get_recommendation()
+
+    except Exception as e:
+        st.error(f"Error generating recommendation: {str(e)}")
+        st.info("Please try completing the diagnosis again.")
+        return
 
     if recommendation:
         action = recommendation.get('action', 'UNKNOWN')
@@ -891,7 +949,64 @@ def page_care_pathway():
             """)
 
     else:
-        st.info("No specific recommendation generated")
+        st.markdown("---")
+        st.markdown("""
+        <div class='warning-box'>
+            <h3>⚠️ Unable to Generate Specific Recommendation</h3>
+            <p>We couldn't generate a detailed care recommendation based on your current data.</p>
+            <p><strong>Possible reasons:</strong></p>
+            <ul>
+                <li>Incomplete risk assessment data</li>
+                <li>Missing required information</li>
+                <li>System needs more input to make a recommendation</li>
+            </ul>
+            <p><strong>What to do:</strong></p>
+            <ol>
+                <li>Go back to <strong>Diagnosis</strong> page</li>
+                <li>Ensure all required fields are filled</li>
+                <li>Complete the diagnosis again</li>
+                <li>Return to this page</li>
+            </ol>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        # Show current risk level at least
+        if risk:
+            st.subheader("Your Current Risk Level")
+            risk_level = risk['risk_level']
+            risk_score = risk['risk_score']
+            risk_color = get_risk_color(risk_level)
+
+            st.markdown(f"""
+            <div style='background-color: {risk_color}; padding: 1rem; border-radius: 0.5rem; color: white; text-align: center;'>
+                <h3>{t(f'risk_{risk_level}').upper()}</h3>
+                <h4>{risk_score:.1f} / 100</h4>
+            </div>
+            """, unsafe_allow_html=True)
+
+            st.markdown("<br>", unsafe_allow_html=True)
+
+            # General guidance based on risk level
+            st.subheader("General Care Guidance")
+            if risk_level == 'critical' or risk_level == 'high':
+                st.error(
+                    "🚨 **High/Critical Risk:** Please seek medical attention immediately. Call 999 or go to nearest hospital.")
+            elif risk_level == 'medium':
+                st.warning(
+                    "⚠️ **Medium Risk:** Consult a healthcare provider within 24-48 hours. Monitor symptoms closely.")
+            else:
+                st.info("ℹ️ **Low Risk:** Self-monitor at home. Seek care if symptoms worsen.")
+
+        # Emergency contacts always shown
+        st.markdown("---")
+        st.subheader("📞 Emergency Contacts")
+        st.markdown(f"""
+        - **Emergency:** {get_emergency_number('national')}
+        - **COVID-19 Hotline:** {get_emergency_number('covid_hotline')}
+        - **Health Ministry:** {get_emergency_number('health_ministry')}
+        """)
 
 
 # ============================================================================
