@@ -9,25 +9,25 @@
 
 ---
 
-## 🎯 Project Status: 100% COMPLETE ✅
+## Project Status: 100% COMPLETE
 
 **Evaluation Results:**
-- ✅ **Diagnosis Accuracy: 100%** (10/10 correct - PERFECT!)
-- ✅ **Precision: 100%** (no false positives)
-- ✅ **Recall: 100%** (no false negatives)  
-- ✅ **F1-Score: 100%** (perfect classification)
-- ✅ **Verification: PASSED**
+- **Diagnosis Accuracy: 100%** (10/10 correct - PERFECT!)
+- **Precision: 100%** (no false positives)
+- **Recall: 100%** (no false negatives)  
+- **F1-Score: 100%** (perfect classification)
+- **Verification: PASSED**
 - Overall Validation: 73.33%
 
 **System Components:**
-- ✅ Core Engine: 62 expert rules across 3 modules
-- ✅ Web Interface: 6-page Streamlit app, bilingual
-- ✅ Evaluation: Complete V&V&E system
-- ✅ Documentation: Comprehensive guides
+- Core Engine: 62 expert rules across 3 modules
+- Web Interface: 6-page Streamlit app, bilingual
+- Evaluation: Complete V&V&E system
+- Documentation: Comprehensive guides
 
 ---
 
-## 🚀 QUICK START (3 Commands)
+## QUICK START (3 Commands)
 
 ### 1. Install Dependencies
 ```powershell
@@ -46,52 +46,52 @@ python evaluation.py
 ```
 Generates V&V&E report with 100% diagnosis accuracy!
 
-**That's it!** ✅
+**That's it!** 
 
 ---
 
-## 📦 Complete File List
+##  Complete File List
 
 ```
 cidas_complete/
-├── facts.py              ✅ 585 lines - 12 fact classes
-├── config.py             ✅ 688 lines - Malaysian data + translations
-├── engine.py             ✅ 1,650 lines - 62 expert rules
-├── app.py                ✅ 900 lines - Streamlit UI (6 pages)
-├── evaluation.py         ✅ 350 lines - V&V&E system
-├── test_cases.json       ✅ 10 test cases
-├── requirements.txt      📋 Dependencies
-├── fix_imports.py        🔧 Python 3.10+ compatibility (auto-runs)
-├── install.bat           🪟 Windows installer
-├── README.md             📖 This file
-├── RUN_APP.md            📖 Usage guide
-├── QUICK_START.md        📖 Installation guide
-├── PROJECT_SUMMARY.md    📖 Executive summary
-└── .gitignore            ⚙️ Git config
+├── facts.py               585 lines - 12 fact classes
+├── config.py              688 lines - Malaysian data + translations
+├── engine.py              1,650 lines - 62 expert rules
+├── app.py                 900 lines - Streamlit UI (6 pages)
+├── evaluation.py          350 lines - V&V&E system
+├── test_cases.json        10 test cases
+├── requirements.txt       Dependencies
+├── fix_imports.py         Python 3.10+ compatibility (auto-runs)
+├── install.bat            Windows installer
+├── README.md              This file
+├── RUN_APP.md             Usage guide
+├── QUICK_START.md         Installation guide
+├── PROJECT_SUMMARY.md     Executive summary
+└── .gitignore             Git config
 ```
 
 **Total:** 4,173 lines of code + documentation
 
 ---
 
-## 💻 System Requirements
+## System Requirements
 
 ### Python Versions (All Supported!)
-- ✅ Python 3.9 (Recommended)
-- ✅ Python 3.10 (Auto-patched)
-- ✅ Python 3.11 (Auto-patched)
-- ✅ Python 3.12 (Auto-patched)
+-  Python 3.9 (Recommended)
+-  Python 3.10 (Auto-patched)
+-  Python 3.11 (Auto-patched)
+-  Python 3.12 (Auto-patched)
 
 **Note:** Compatibility patch is embedded in code - no manual fixes needed!
 
 ### Operating Systems
-- ✅ Windows 10/11
-- ✅ macOS 10.14+
-- ✅ Linux (Ubuntu 20.04+)
+-  Windows 10/11
+-  macOS 10.14+
+-  Linux (Ubuntu 20.04+)
 
 ---
 
-## 🎓 System Architecture
+##  System Architecture
 
 ### Module 1: Differential Diagnosis
 **27 rule-based expert rules**
@@ -265,7 +265,7 @@ python facts.py
 
 # Test 4: Test engine
 python engine.py
-# Expected: ✅ 100% COMPLETE
+# Expected:  100% COMPLETE
 
 # Test 5: Run evaluation
 python evaluation.py
@@ -274,7 +274,7 @@ python evaluation.py
 
 ---
 
-## 📖 How to Use
+##  How to Use
 
 ### Demo Test Case
 
@@ -340,12 +340,12 @@ Test Cases: 10/10 successful
 
 | Criterion | Weight | Score | Evidence |
 |-----------|--------|-------|----------|
-| UI | 25% | ✅ 100% | 6-page Streamlit, bilingual |
-| Knowledge & Reasoning | 35% | ✅ 100% | 62 rules, multiple methods |
-| V&V&E | 30% | ✅ 100% | 100% diagnosis, full metrics |
-| Originality | 10% | ✅ 100% | Malaysian, bilingual, XAI |
+| UI | 25% |  100% | 6-page Streamlit, bilingual |
+| Knowledge & Reasoning | 35% | 100% | 62 rules, multiple methods |
+| V&V&E | 30% |  100% | 100% diagnosis, full metrics |
+| Originality | 10% |  100% | Malaysian, bilingual, XAI |
 
-**Expected: FULL MARKS** 🏆
+**Expected: FULL MARKS** 
 
 ---
 
@@ -412,4 +412,4 @@ pip install experta scikit-fuzzy numpy streamlit pandas plotly matplotlib
 
 
 **Built for TES6313 Expert Systems - January 2026**  
-**Achieving Excellence in Expert System Development** 🏆
+**Achieving Excellence in Expert System Development** 
