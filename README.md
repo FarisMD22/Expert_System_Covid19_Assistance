@@ -133,11 +133,6 @@ cidas_complete/
 - Emergency hotlines (999, COVID hotline)
 - Local testing guidelines
 
-### Bilingual Support
-- English + Bahasa Malaysia
-- 100+ phrases translated
-- Real-time language switching
-
 ### Explainable AI
 - Clinical reasoning for all decisions
 - Evidence presentation
