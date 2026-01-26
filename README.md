@@ -35,8 +35,13 @@ pip install streamlit pandas plotly experta numpy scikit-fuzzy scipy networkx
 ```
 
 ### 2. Run Web Application
+Option A:
 ```powershell
 streamlit run app.py
+```
+Option B (if you ran into issues):
+```powershell
+python -m streamlit run app.py
 ```
 Opens at `http://localhost:8501`
 
