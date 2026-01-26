@@ -169,10 +169,10 @@ def render_sidebar():
         st.markdown("---")
 
         # Language selection
-        st.subheader("" + t("Navigation Settings"))
-        lang_options = {"English": "en", "Bahasa Malaysia": "ms"}
+        st.session_state.language = 'en'
+        lang_options = {"English": "en"}
         selected_lang = st.selectbox(
-            "Language / Bahasa",
+            "Language",
             options=list(lang_options.keys()),
             index=0 if st.session_state.language == 'en' else 1
         )
