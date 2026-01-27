@@ -47,15 +47,51 @@ def verify_rule_consistency():
         'issues': []
     }
 
-    # Check 1: No conflicting rules (same symptoms → different diagnoses with high confidence)
+    # Check 1: Verify all engines initialize without errors and have unique rule IDs
     results['total_checks'] += 1
     try:
-        # This would require checking all rule combinations
-        # For now, manual review confirms no conflicts
+        # Test DifferentialDiagnosisEngine initialization
+        diag_engine = DifferentialDiagnosisEngine()
+        diag_engine.reset()
+
+        # Test SeverityEngine initialization
+        severity_engine = SeverityEngine()
+        severity_engine.reset()
+
+        # Verify rule IDs are unique (no duplicates)
+        # This catches issues like duplicate SH-012, SH-015
+        all_rule_ids = set()
+        for rule_name in dir(diag_engine):
+            if not rule_name.startswith('_'):
+                rule_method = getattr(diag_engine, rule_name)
+                if hasattr(rule_method, '__doc__') and rule_method.__doc__:
+                    if 'DD-' in rule_method.__doc__:
+                        # Extract rule ID from docstring
+                        import re
+                        match = re.search(r'DD-\d+', rule_method.__doc__)
+                        if match:
+                            rule_id = match.group()
+                            if rule_id in all_rule_ids:
+                                raise ValueError(f"Duplicate rule ID found: {rule_id}")
+                            all_rule_ids.add(rule_id)
+
+        for rule_name in dir(severity_engine):
+            if not rule_name.startswith('_'):
+                rule_method = getattr(severity_engine, rule_name)
+                if hasattr(rule_method, '__doc__') and rule_method.__doc__:
+                    if 'SH-' in rule_method.__doc__:
+                        import re
+                        match = re.search(r'SH-\d+', rule_method.__doc__)
+                        if match:
+                            rule_id = match.group()
+                            if rule_id in all_rule_ids:
+                                raise ValueError(f"Duplicate rule ID found: {rule_id}")
+                            all_rule_ids.add(rule_id)
+
         results['passed'] += 1
     except Exception as e:
         results['failed'] += 1
-        results['issues'].append(f"Rule conflict check failed: {e}")
+        results['issues'].append(f"Engine initialization or rule uniqueness check failed: {e}")
 
     # Check 2: All fuzzy variables properly defined
     results['total_checks'] += 1
@@ -253,6 +289,14 @@ def run_test_case(test_case):
         if medical_history:
             diag_engine.declare(MedicalHistory(**medical_history))
 
+        # Declare default exposure history (ADDED for completeness)
+        exposure_history = test_case.get('exposure_history', {})
+        diag_engine.declare(ExposureHistory(
+            close_contact=exposure_history.get('close_contact', False),
+            travel_history=exposure_history.get('travel_history', False),
+            healthcare_worker=exposure_history.get('healthcare_worker', False)
+        ))
+
         diag_engine.run()
         diagnosis_results = diag_engine.get_top_diagnoses()
 
@@ -284,8 +328,20 @@ def run_test_case(test_case):
             score=risk['risk_score']
         ))
         severity_engine.declare(Patient(age=age))
-        if medical_history.get('diabetes'):
-            severity_engine.declare(MedicalHistory(diabetes=True))
+
+        # Declare complete medical history (FIXED)
+        severity_engine.declare(MedicalHistory(
+            diabetes=medical_history.get('diabetes', False),
+            hypertension=medical_history.get('hypertension', False),
+            heart_disease=medical_history.get('heart_disease', False),
+            lung_disease=medical_history.get('lung_disease', False),
+            kidney_disease=medical_history.get('kidney_disease', False),
+            cancer=medical_history.get('cancer', False),
+            immunocompromised=medical_history.get('immunocompromised', False),
+            obesity=medical_history.get('obesity', False),
+            pregnancy=medical_history.get('pregnancy', False),
+            smoking=medical_history.get('smoking', False)
+        ))
 
         severity_engine.run()
         recommendation = severity_engine.get_recommendation()
