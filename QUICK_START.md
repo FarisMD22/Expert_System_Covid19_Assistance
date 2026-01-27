@@ -90,7 +90,10 @@ python config.py
 ```bash
 streamlit run app.py
 ```
-
+If that doesn't work try:
+```bash
+python -m streamlit run app.py
+```
 **✅ Success:** Browser opens automatically to http://localhost:8501
 
 **If browser doesn't open:** Manually go to http://localhost:8501
