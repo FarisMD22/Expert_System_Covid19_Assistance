@@ -42,7 +42,6 @@
 - **80% Overall Performance** (competitive with published research)
 - **67 Expert Rules** across 3 modules
 - **Malaysian Healthcare Integration** (KKM guidelines, local hospitals)
-- **Bilingual Support** (English/Bahasa Malaysia)
 - **Interactive Visualizations** with downloadable analytics
 
 ---
