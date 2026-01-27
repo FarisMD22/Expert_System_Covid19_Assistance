@@ -396,6 +396,23 @@ def page_diagnosis():
 
     with col1:
         age = st.number_input(t('age'), min_value=0, max_value=120, value=30)
+
+# ============================================================================
+# PAGE 2: DIAGNOSIS
+# ============================================================================
+
+def page_diagnosis():
+    """Diagnosis page with symptom input and analysis"""
+    st.markdown(f"<div class='sub-header'>{t('nav_diagnosis')}</div>", unsafe_allow_html=True)
+
+    st.markdown("---")
+
+    # Patient information
+    st.subheader(t('patient_info'))
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        age = st.number_input(t('age'), min_value=0, max_value=120, value=30)
     with col2:
         gender = st.selectbox(t('gender'), [t('male'), t('female')])
     with col3:
