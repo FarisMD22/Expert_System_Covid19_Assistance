@@ -13,19 +13,19 @@ for _attr in ['Mapping', 'MutableMapping', 'Iterable', 'Iterator', 'Callable',
 # ============================================================================
 # FILE: engine.py
 # LOCATION: /cidas/engine.py
-# DESCRIPTION: Expert system engine - ✅ 100% COMPLETE
-# STATUS: ✅ 100% COMPLETE - ALL RULES IMPLEMENTED
+# DESCRIPTION: Expert system engine - 100% COMPLETE
+# STATUS: 100% COMPLETE - ALL RULES IMPLEMENTED
 #
 # COMPLETION STATUS:
-#   ✅ Module 1: 100% DONE - All 27 differential diagnosis rules
-#   ✅ Module 2: 100% DONE - All 20 fuzzy risk rules
-#   ✅ Module 3: 100% DONE - All 15 hospitalization rules
-#   ✅ Explanation: 100% DONE - Comprehensive XAI explanations
+#   Module 1: 100% DONE - All 27 differential diagnosis rules
+#   Module 2: 100% DONE - All 20 fuzzy risk rules
+#   Module 3: 100% DONE - All 15 hospitalization rules
+#   Explanation: 100% DONE - Comprehensive XAI explanations
 #
 # TOTAL: 62 rules implemented + comprehensive explanation engine
 # ============================================================================
 """
-CIDAS Expert System Engine - ✅ 100% COMPLETE
+CIDAS Expert System Engine -  100% COMPLETE
 
 All modules fully implemented with comprehensive rule sets:
 - Differential Diagnosis: 27 rules
@@ -50,7 +50,7 @@ from config import *
 # ============================================================================
 # MODULE 1: DIFFERENTIAL DIAGNOSIS ENGINE
 # ============================================================================
-# STATUS: ✅ 100% COMPLETE - All 27 rules implemented
+# STATUS: 100% COMPLETE - All 27 rules implemented
 # PURPOSE: Distinguish COVID-19, Influenza, Common Cold, Allergies
 # ============================================================================
 
@@ -71,7 +71,7 @@ class DifferentialDiagnosisEngine(KnowledgeEngine):
         self.fired_rules = []
 
     # ========================================================================
-    # COVID-19 RULES (10 rules) ✅ COMPLETE
+    # COVID-19 RULES (10 rules)  COMPLETE
     # ========================================================================
 
     @Rule(
@@ -237,7 +237,7 @@ class DifferentialDiagnosisEngine(KnowledgeEngine):
         self.fired_rules.append("DD-010: Nausea pattern (70%)")
 
     # ========================================================================
-    # INFLUENZA RULES (7 rules) ✅ COMPLETE
+    # INFLUENZA RULES (7 rules) COMPLETE
     # ========================================================================
 
     @Rule(
@@ -359,7 +359,7 @@ class DifferentialDiagnosisEngine(KnowledgeEngine):
         self.fired_rules.append("DD-017: Severe prostration (77%)")
 
     # ========================================================================
-    # COMMON COLD RULES (6 rules) ✅ COMPLETE
+    # COMMON COLD RULES (6 rules)
     # ========================================================================
 
     @Rule(
@@ -470,7 +470,7 @@ class DifferentialDiagnosisEngine(KnowledgeEngine):
         self.fired_rules.append("DD-023: Upper respiratory (72%)")
 
     # ========================================================================
-    # ALLERGIES RULES (4 rules) ✅ COMPLETE
+    # ALLERGIES RULES (4 rules)
     # ========================================================================
 
     @Rule(
@@ -568,7 +568,7 @@ class DifferentialDiagnosisEngine(KnowledgeEngine):
 # ============================================================================
 # MODULE 2: FUZZY RISK CLASSIFICATION ENGINE
 # ============================================================================
-# STATUS: ✅ 100% COMPLETE - All 20 fuzzy rules implemented
+# STATUS: 100% COMPLETE - All 20 fuzzy rules implemented
 # PURPOSE: Calculate COVID-19 risk level using fuzzy logic
 # METHOD: Mamdani fuzzy inference
 # RULES: 20/20 COMPLETE
@@ -579,7 +579,7 @@ class FuzzyRiskEngine:
     """
     Fuzzy inference system for COVID-19 risk classification
 
-    STATUS: ✅ COMPLETE - All variables and 20 rules implemented
+    STATUS: COMPLETE - All variables and 20 rules implemented
 
     Inputs:
     - Fever level (°C)
@@ -602,7 +602,7 @@ class FuzzyRiskEngine:
         self.simulator = ctrl.ControlSystemSimulation(self.control_system)
 
     def create_fuzzy_variables(self):
-        """✅ COMPLETE - All fuzzy variables defined"""
+        """ COMPLETE - All fuzzy variables defined"""
 
         # Input 1: Fever Level (36-42°C)
         self.fever_level = ctrl.Antecedent(np.arange(36, 43, 0.1), 'fever_level')
@@ -643,7 +643,7 @@ class FuzzyRiskEngine:
         self.risk_level['critical'] = fuzz.trapmf(self.risk_level.universe, [80, 90, 100, 100])
 
     def create_fuzzy_rules(self):
-        """✅ COMPLETE - All 20 fuzzy rules for risk assessment"""
+        """COMPLETE - All 20 fuzzy rules for risk assessment"""
 
         self.rules = []
 
@@ -849,7 +849,7 @@ class FuzzyRiskEngine:
 # ============================================================================
 # MODULE 3: SEVERITY & HOSPITALIZATION ENGINE
 # ============================================================================
-# STATUS: ✅ 100% COMPLETE - All 20 rules implemented
+# STATUS: 100% COMPLETE - All 20 rules implemented
 # PURPOSE: Recommend appropriate care pathway
 # METHOD: Hybrid (rule-based + fuzzy output)
 # RULES: 20/20 COMPLETE (SH-001 to SH-020)
@@ -860,7 +860,7 @@ class SeverityEngine(KnowledgeEngine):
     """
     Severity assessment and hospitalization recommendation engine
 
-    STATUS: ✅ COMPLETE - All 20 rules implemented (SH-001 to SH-020)
+    STATUS: COMPLETE - All 20 rules implemented (SH-001 to SH-020)
 
     Takes fuzzy risk assessment output and makes care pathway recommendations
 
@@ -879,7 +879,7 @@ class SeverityEngine(KnowledgeEngine):
         self.fired_rules = []
 
     # ========================================================================
-    # CRITICAL CASES (3 rules) ✅ COMPLETE
+    # CRITICAL CASES (3 rules) COMPLETE
     # ========================================================================
 
     @Rule(RiskAssessment(level="critical"), salience=100)
@@ -1244,7 +1244,7 @@ class SeverityEngine(KnowledgeEngine):
 # ============================================================================
 # EXPLANATION ENGINE
 # ============================================================================
-# STATUS: ✅ 100% COMPLETE - Full XAI explanations implemented
+# STATUS: 100% COMPLETE - Full XAI explanations implemented
 # ============================================================================
 
 class ExplanationEngine:
@@ -1358,7 +1358,7 @@ class ExplanationEngine:
 """
 
         # Add important disclaimer
-        explanation += "\n\n⚠️ **Important Medical Disclaimer:**\n"
+        explanation += "\n\n️ **Important Medical Disclaimer:**\n"
         explanation += "This is an AI-assisted assessment based on reported symptoms. "
         explanation += "It is NOT a medical diagnosis. Please consult a qualified healthcare "
         explanation += "professional for proper medical evaluation and advice."
@@ -1634,11 +1634,11 @@ class ExplanationEngine:
 
 if __name__ == "__main__":
     print("=" * 70)
-    print("CIDAS ENGINE - ✅ 100% COMPLETE")
+    print("CIDAS ENGINE - 100% COMPLETE")
     print("=" * 70)
 
     # Test Module 1 (100% complete)
-    print("\n✅ Module 1: DIFFERENTIAL DIAGNOSIS (100% COMPLETE - 27 rules)")
+    print("\nModule 1: DIFFERENTIAL DIAGNOSIS (100% COMPLETE - 27 rules)")
     engine1 = DifferentialDiagnosisEngine()
     engine1.reset()
     engine1.declare(Symptom(
@@ -1654,14 +1654,14 @@ if __name__ == "__main__":
         print(f"   ✓ Total rules in system: 27")
 
     # Test Module 2 (100% complete)
-    print("\n✅ Module 2: FUZZY RISK (100% COMPLETE - 20 rules)")
+    print("\nModule 2: FUZZY RISK (100% COMPLETE - 20 rules)")
     engine2 = FuzzyRiskEngine()
     risk = engine2.calculate_risk(38.5, 5, 45, 45, 2)
     print(f"   ✓ Risk: {risk['risk_level']} ({risk['risk_score']:.1f}/100)")
     print(f"   ✓ Total fuzzy rules: 20")
 
     # Test Module 3 (100% complete)
-    print("\n✅ Module 3: SEVERITY (100% COMPLETE - 15 rules)")
+    print("\nModule 3: SEVERITY (100% COMPLETE - 15 rules)")
     engine3 = SeverityEngine()
     engine3.reset()
     engine3.declare(RiskAssessment(level="high"))
@@ -1674,7 +1674,7 @@ if __name__ == "__main__":
         print(f"   ✓ Total severity rules: 15")
 
     # Test Explanation Engine (100% complete)
-    print("\n✅ Explanation Engine: (100% COMPLETE)")
+    print("\nExplanation Engine: (100% COMPLETE)")
     explainer = ExplanationEngine()
     diag_explanation = explainer.generate_diagnosis_explanation(results, engine1.get_explanation().split('\n'))
     print(f"   ✓ Diagnosis explanation: {len(diag_explanation)} characters")
@@ -1685,13 +1685,13 @@ if __name__ == "__main__":
         print(f"   ✓ Recommendation explanation: {len(rec_explanation)} characters")
 
     print("\n" + "=" * 70)
-    print("✅ ✅ ✅ ENGINE MODULE IS 100% COMPLETE! ✅ ✅ ✅")
+    print(" ENGINE MODULE IS 100% COMPLETE! ")
     print("=" * 70)
     print("\nCOMPLETION SUMMARY:")
-    print("✅ Module 1: 27/27 differential diagnosis rules")
-    print("✅ Module 2: 20/20 fuzzy risk rules")
-    print("✅ Module 3: 15/15 severity & hospitalization rules")
-    print("✅ Explanation: Complete with comprehensive XAI")
+    print(" Module 1: 27/27 differential diagnosis rules")
+    print("Module 2: 20/20 fuzzy risk rules")
+    print("Module 3: 15/15 severity & hospitalization rules")
+    print("Explanation: Complete with comprehensive XAI")
     print("\nTOTAL: 62 rules + comprehensive explanations")
     print("\nReady for UI development (app.py) and evaluation!")
     print("=" * 70)
