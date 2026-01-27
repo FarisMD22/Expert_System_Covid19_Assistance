@@ -1,556 +1,338 @@
-455# 🚀 CIDAS - Quick Start Guide
-## Get Running in 5 Minutes!
+# 🚀 CIDAS Quick Start Guide
 
-**Welcome to CIDAS!** This guide will get you up and running quickly.
-
----
-
-## ✅ What You'll Achieve
-
-By the end of this guide, you'll have:
-- ✅ All dependencies installed
-- ✅ Web application running on `http://localhost:8501`
-- ✅ Evaluation system tested (showing 100% diagnosis accuracy)
-- ✅ Confidence that everything works!
-
-**Time Required:** 5-10 minutes
+**Get up and running in 5 minutes!**
 
 ---
 
-## 📋 Prerequisites
+## ⚡ Super Quick Start (Copy-Paste)
 
-### Required:
-- **Python 3.9 or higher** (3.9, 3.10, 3.11, or 3.12)
-- **pip** (Python package installer)
-- **Internet connection** (for downloading packages)
+```bash
+# Copy and paste these commands one by one:
 
-### Check Your Python Version:
-```powershell
-python --version
-```
-
-**Expected Output:** `Python 3.9.x` or higher
-
-**If you have Python 3.8 or older:** Download the latest from [python.org](https://www.python.org/downloads/)
-
----
-
-## 🎯 STEP 1: Install Dependencies
-
-### Option A: Automatic (Windows - Easiest!)
-
-```powershell
-.\install.bat
-```
-
-This will:
-1. Install all required packages
-2. Test the installation automatically
-3. Show you if everything works
-
-**Expected Output:**
-```
-Installing dependencies...
-Requirement already satisfied: experta...
-...
-✓ ALL TESTS PASSED - facts.py is working correctly!
-```
-
-### Option B: Manual Installation (All Platforms)
-
-```powershell
-pip install experta scikit-fuzzy "numpy<2.0" streamlit pandas plotly matplotlib pytest
-```
-
-**Note for Python 3.10+:** The compatibility patch is already embedded in the code - no extra steps needed!
-
-### Troubleshooting Installation
-
-**Issue:** `pip: command not found`
-```powershell
-# Try:
-python -m pip install experta scikit-fuzzy numpy streamlit pandas plotly matplotlib
-```
-
-**Issue:** Dependency conflicts
-```powershell
-# Uninstall and reinstall:
-pip uninstall experta frozendict -y
-pip install experta
-pip install scikit-fuzzy numpy streamlit pandas plotly matplotlib
-```
-
-**Issue:** Permission denied
-```powershell
-# Use --user flag:
-pip install --user experta scikit-fuzzy numpy streamlit pandas plotly matplotlib
-```
-
----
-
-## 🧪 STEP 2: Verify Installation
-
-Run these quick tests to ensure everything is installed correctly:
-
-### Test 1: Check Imports
-```powershell
-python -c "import experta, streamlit, skfuzzy; print('✓ All imports successful!')"
-```
-
-**Expected:** `✓ All imports successful!`
-
-**If you get an error:** Re-run the installation command from Step 1.
-
-### Test 2: Test Facts Module
-```powershell
-python facts.py
-```
-
-**Expected Output:**
-```
-============================================================
-CIDAS Facts Module - Self Test
-============================================================
-
-1. Testing Patient fact...
-   ✓ Patient created: P001, age 45
-2. Testing Symptom fact...
-   ✓ Symptom created: Fever=True, Temp=38.5°C
-3. Testing aggregate_comorbidities()...
-   ✓ No comorbidities: Score = 0.0
-   ✓ Diabetes + Hypertension: Score = 3.5
-4. Testing calculate_symptom_severity()...
-   ✓ Mild symptoms: Severity = 11.0
-   ✓ Severe symptoms: Severity = 49.0
-5. Testing count_symptoms()...
-   ✓ Symptom count: 4
-
-============================================================
-✓ ALL TESTS PASSED - facts.py is working correctly!
-============================================================
-```
-
-### Test 3: Test Complete Engine
-```powershell
-python engine.py
-```
-
-**Expected Output:**
-```
-======================================================================
-CIDAS ENGINE - ✅ 100% COMPLETE
-======================================================================
-
-✅ Module 1: DIFFERENTIAL DIAGNOSIS (100% COMPLETE - 27 rules)
-   ✓ Diagnosis: COVID-19 (95%)
-   ✓ Rule fired: DD-001
-   ✓ Total rules in system: 27
-
-✅ Module 2: FUZZY RISK (100% COMPLETE - 20 rules)
-   ✓ Risk: medium (45.0/100)
-   ✓ Total fuzzy rules: 20
-
-✅ Module 3: SEVERITY (100% COMPLETE - 15 rules)
-   ✓ Recommendation: HOSPITALIZATION
-   ✓ Rule fired: SH-004
-   ✓ Total severity rules: 15
-
-✅ Explanation Engine: (100% COMPLETE)
-   ✓ Diagnosis explanation: 1185 characters
-   ✓ Risk explanation: 772 characters
-   ✓ Recommendation explanation: 827 characters
-
-======================================================================
-✅ ✅ ✅ ENGINE MODULE IS 100% COMPLETE! ✅ ✅ ✅
-======================================================================
-```
-
-**If all 3 tests pass → You're ready to proceed!** ✅
-
----
-
-## 🌐 STEP 3: Run the Web Application
-
-### Launch Streamlit:
-```powershell
+git clone https://github.com/FarisMD22/Expert_System_Covid19_Assistance.git
+cd Expert_System_Covid19_Assistance
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
 streamlit run app.py
 ```
 
-### What Happens:
+**Done!** Your browser will open automatically at http://localhost:8501
 
-1. **Terminal shows:**
+---
+
+## 📝 Step-by-Step Instructions
+
+### 1️⃣ **Clone the Repository**
+
+**Windows / Mac / Linux:**
+```bash
+git clone https://github.com/FarisMD22/Expert_System_Covid19_Assistance.git
 ```
-You can now view your Streamlit app in your browser.
 
-  Local URL: http://localhost:8501
-  Network URL: http://192.168.x.x:8501
+**Don't have Git?** [Download as ZIP](https://github.com/FarisMD22/Expert_System_Covid19_Assistance/archive/refs/heads/main.zip) and extract.
+
+---
+
+### 2️⃣ **Navigate to Project**
+
+```bash
+cd Expert_System_Covid19_Assistance
 ```
 
-2. **Browser automatically opens** to `http://localhost:8501`
+---
 
-3. **You see the CIDAS home page!** 🎉
+### 3️⃣ **Create Virtual Environment**
 
-### If Browser Doesn't Open Automatically:
+**Windows:**
+```bash
+python -m venv .venv
+.venv\Scripts\activate
+```
 
-Manually navigate to: **http://localhost:8501**
+**Mac/Linux:**
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
 
-### Troubleshooting Web App
+**✅ Success:** You should see `(.venv)` at the start of your command line.
 
-**Issue:** Port already in use
-```powershell
-# Use a different port:
+---
+
+### 4️⃣ **Install Requirements**
+
+```bash
+pip install -r requirements.txt
+```
+
+**⏱️ This takes 1-2 minutes.** You'll see packages being installed.
+
+**✅ Success:** Should end with "Successfully installed..."
+
+---
+
+### 5️⃣ **Verify Installation**
+
+```bash
+python config.py
+```
+
+**Expected output:**
+```
+✓ ALL TESTS PASSED - config.py is working correctly!
+```
+
+---
+
+### 6️⃣ **Run the Application**
+
+```bash
+streamlit run app.py
+```
+
+**✅ Success:** Browser opens automatically to http://localhost:8501
+
+**If browser doesn't open:** Manually go to http://localhost:8501
+
+---
+
+## 🎯 First Time Using CIDAS
+
+### Try Your First Diagnosis
+
+1. **Click "Diagnosis"** in the left sidebar
+2. **Fill in patient info:**
+   - Patient ID: `TEST001`
+   - Age: `45`
+   - Gender: `Male`
+
+3. **Select symptoms:**
+   - ✅ Fever (Temperature: 38.5°C)
+   - ✅ Cough (Type: Dry)
+   - ✅ Fatigue (Severity: Moderate)
+   - ✅ Loss of taste/smell
+   - Oxygen: `96%`
+
+4. **Click "Analyze Patient"**
+
+5. **See Results:**
+   - Diagnosis: COVID-19 (95% confidence)
+   - Risk: Medium
+   - Recommendation: Monitored Home Care
+
+**Congratulations!** 🎉 You've completed your first diagnosis!
+
+---
+
+## 📊 Generate Your First Chart
+
+1. **Go to "History"** page (left sidebar)
+2. **Scroll down** to "Generate Figures & Analytics"
+3. **Click "📈 Generate All Figures"**
+4. **Wait 2-3 seconds**
+5. **See your chart!**
+6. **Click "💾 Download Report (PNG)"**
+7. **Check your Downloads folder** ✅
+
+---
+
+## 🧪 Run Tests
+
+Verify everything works:
+
+```bash
+python evaluation.py
+```
+
+**Expected results:**
+```
+Test Cases: 10/10 ✓
+Diagnosis Accuracy: 100%
+Overall Accuracy: 80%
+✓ Evaluation complete!
+```
+
+---
+
+## ⚠️ Common Issues
+
+### Issue: "streamlit: command not found"
+
+**Fix:**
+```bash
+# Make sure virtual environment is activated
+.venv\Scripts\activate  # Windows
+source .venv/bin/activate  # Mac/Linux
+
+# Then try again
+streamlit run app.py
+```
+
+### Issue: "ModuleNotFoundError"
+
+**Fix:**
+```bash
+pip install -r requirements.txt
+```
+
+### Issue: Port already in use
+
+**Fix:**
+```bash
 streamlit run app.py --server.port 8502
 ```
 
-**Issue:** `streamlit: command not found`
-```powershell
-# Run directly with Python:
-python -m streamlit run app.py
-```
-
-**Issue:** App loads but shows errors
-- Make sure you're in the project directory
-- Check that all files are present (facts.py, config.py, engine.py, app.py)
-
----
-
-## 🎮 STEP 4: Try the Demo
-
-### Quick Demo Workflow:
-
-1. **Navigate to "Diagnosis" page** (in sidebar)
-
-2. **Enter Patient Information:**
-   - Age: `45`
-   - Gender: `Male`
-   - State: `Selangor`
-
-3. **Check Symptoms:**
-   - ✅ Fever: `38.5°C`
-   - ✅ Cough: Dry
-   - ✅ Loss of taste/smell
-   - ✅ Fatigue: Moderate
-   - Duration: `5` days
-   - Oxygen: `96%`
-
-4. **Click "Diagnose"** button
-
-5. **See Results:**
-   - Diagnosis: **COVID-19** (95% confidence)
-   - Differential diagnosis table
-   - Confidence chart
-
-6. **Navigate to "Risk Assessment"** page
-   - See: **Medium Risk** (45-55/100)
-   - Interactive risk gauge
-   - Contributing factors
-
-7. **Navigate to "Care Pathway"** page
-   - Get recommendation: **Home Care Monitored**
-   - See nearest hospitals in Selangor
-   - Emergency contacts
-
-8. **Try Language Switch** (in sidebar)
-   - Switch to "Bahasa Malaysia"
-   - See UI update in real-time
-   - Switch back to English
-
-**Congratulations! You've successfully used CIDAS!** 🎉
-
----
-
-## 📊 STEP 5: Run Evaluation (For Grading)
-
-### Run the Evaluation System:
-```powershell
-python evaluation.py
-```
-
-### What You'll See:
-
-```
-================================================================================
-CIDAS EXPERT SYSTEM - COMPREHENSIVE EVALUATION
-================================================================================
-
-Running 10 test cases...
-  Test case 1/10: COVID_001... ✓
-  Test case 2/10: COVID_002... ✓
-  Test case 3/10: COVID_003... ✓
-  Test case 4/10: FLU_001... ✓
-  Test case 5/10: FLU_002... ✓
-  Test case 6/10: COLD_001... ✓
-  Test case 7/10: COLD_002... ✓
-  Test case 8/10: ALLERGY_001... ✓
-  Test case 9/10: ALLERGY_002... ✓
-  Test case 10/10: COVID_004... ✓
-
-✓ Report saved to evaluation_report.txt
-
-================================================================================
-SECTION 2: VALIDATION (External Accuracy)
-================================================================================
-
-Test Cases:
-  Total: 10
-
-Module Accuracy:
-  Diagnosis: 100.00% ✅
-  Risk Assessment: 70.00%
-  Recommendation: 50.00%
-  Overall: 73.33%
-
-================================================================================
-SECTION 3: EVALUATION (Performance Metrics)
-================================================================================
-
-Per-Class Metrics:
-
-  COVID-19:
-    Precision: 100.00%
-    Recall: 100.00%
-    F1-Score: 100.00%
-    Support: 4 cases
-
-  Influenza:
-    Precision: 100.00%
-    Recall: 100.00%
-    F1-Score: 100.00%
-    Support: 2 cases
-
-  Common Cold:
-    Precision: 100.00%
-    Recall: 100.00%
-    F1-Score: 100.00%
-    Support: 2 cases
-
-  Allergies:
-    Precision: 100.00%
-    Recall: 100.00%
-    F1-Score: 100.00%
-    Support: 2 cases
-
-  Macro-Average:
-    Precision: 100.00%
-    Recall: 100.00%
-    F1-Score: 100.00%
-
-Confusion Matrix:
-             COVID-19  Common Cold  Allergies  Influenza
-COVID-19            4            0          0          0
-Common Cold         0            2          0          0
-Allergies           0            0          2          0
-Influenza           0            0          0          2
-
-================================================================================
-SUMMARY
-================================================================================
-
-Verification Status: PASSED ✅
-Validation Accuracy: 73.33%
-Evaluation F1-Score: 100.00% ✅
-
-================================================================================
-```
-
-### Key Results:
-- ✅ **100% Diagnosis Accuracy** (Perfect!)
-- ✅ **Perfect Confusion Matrix** (No misclassifications)
-- ✅ **All Tests Passed**
-
-**This is what you show for grading!** 🏆
-
----
-
-## 🎯 What to Expect
-
-### Success Indicators ✅
-
-**Installation Successful If:**
-- ✅ All pip packages install without errors
-- ✅ `python facts.py` shows "ALL TESTS PASSED"
-- ✅ `python engine.py` shows "100% COMPLETE"
-
-**Web App Working If:**
-- ✅ Streamlit opens in browser
-- ✅ You see 6 pages in sidebar (Home, Diagnosis, Risk, Care, History, About)
-- ✅ Diagnosis page accepts input and shows results
-- ✅ Language switch works
-
-**Evaluation Working If:**
-- ✅ All 10 test cases pass
-- ✅ Diagnosis accuracy shows 100%
-- ✅ Confusion matrix has no misclassifications
-- ✅ `evaluation_report.txt` is created
-
----
-
-## 🔧 Common Issues & Quick Fixes
-
-### Issue 1: Python Too Old
-
-**Check:**
-```powershell
-python --version
-```
-
-**If < 3.9:** Download latest from [python.org](https://www.python.org/downloads/)
-
----
-
-### Issue 2: `collections.Mapping` Error
-
-**Don't worry!** The fix is already embedded in the code. If you still see this:
-
-1. Make sure you're using the latest `facts.py` and `engine.py`
-2. The compatibility patch runs automatically
-3. No manual action needed
-
-**Technical Detail:** Python 3.10+ moved `collections.Mapping` to `collections.abc.Mapping`. Our code automatically patches this.
-
----
-
-### Issue 3: Test Cases Error
-
-**Error:** `test_cases should be a list, got <class 'dict'>`
+### Issue: Visualization buttons don't work
 
 **Fix:**
-```powershell
-# Verify JSON is valid:
-python -c "import json; print(len(json.load(open('test_cases.json'))))"
-# Should output: 10
+1. Complete at least one diagnosis first
+2. Make sure `visualizations.py` exists in project folder
+3. Refresh the page (F5)
+
+---
+
+## 📚 What's Next?
+
+### Learn More
+
+- **Full Documentation:** See [README.md](README.md)
+- **User Guide:** Click "About" in the app
+- **Technical Details:** Check code comments in `engine.py`
+
+### Try Different Scenarios
+
+**COVID-19 (High Risk):**
+- Age: 75, Multiple comorbidities, Low O2
+
+**Influenza:**
+- Body ache, Sudden onset, No loss of taste
+
+**Common Cold:**
+- Runny nose, Sneezing, No fever
+
+**Allergies:**
+- Itchy eyes, Seasonal, No fever
+
+### Advanced Features
+
+**Generate Analytics:**
+- History page → Generate figures → Download charts
+
+**Run Jupyter Notebook:**
+```bash
+jupyter notebook CIDAS_Analysis.ipynb
 ```
 
-If not, re-download `test_cases.json` from the project.
+**Explore Code:**
+- `engine.py` - 67 expert rules
+- `config.py` - Knowledge base
+- `app.py` - Web interface
 
 ---
 
-### Issue 4: Slow Performance
+## 💡 Pro Tips
 
-**Solutions:**
-- Close other applications
-- Use Python 3.9 (fastest)
-- Clear browser cache (for Streamlit)
+### For Demos
+
+1. **Prepare 3-5 diverse test cases** before demo
+2. **Show History page** with visualizations
+3. **Download figures** to present
+4. **Explain XAI** reasoning for academic credit
+
+### For Development
+
+1. **Always use virtual environment** (.venv)
+2. **Test after changes:** `python evaluation.py`
+3. **Keep browser console open** (F12) for debugging
+4. **Commit frequently** if modifying code
+
+### For Reports
+
+1. **Run Jupyter notebook** for publication-quality figures
+2. **Use 300 DPI exports** for academic papers
+3. **Include confusion matrix** to show 100% diagnosis accuracy
+4. **Compare with literature** (Shatnawi, Ahmed, Ozbey)
 
 ---
 
-## 📝 Checklist - Are You Ready?
+## 🎓 For Team Members
 
-**Before Submission, Verify:**
+### Getting Latest Changes
 
-- [ ] ✅ `python facts.py` passes all tests
-- [ ] ✅ `python engine.py` shows 100% complete
-- [ ] ✅ `streamlit run app.py` opens successfully
-- [ ] ✅ Demo test case works in web interface
-- [ ] ✅ Language switch works (EN ↔ MS)
-- [ ] ✅ `python evaluation.py` shows 100% diagnosis
-- [ ] ✅ `evaluation_report.txt` file created
-- [ ] ✅ All 10 test cases pass
-
-**If all checked → You're 100% ready!** 🎉
-
----
-
-## 🎓 For Your Demonstration
-
-### 5-Minute Demo Script:
-
-**Minute 1:** Show home page, explain system overview
-```powershell
+```bash
+git pull origin main
+pip install -r requirements.txt  # In case dependencies changed
 streamlit run app.py
 ```
 
-**Minute 2:** Enter demo test case (COVID-19)
-- Age 45, Male, Selangor
-- Fever 38.5°C, dry cough, loss of taste/smell
-- Get 95% COVID diagnosis
+### Testing Your Changes
 
-**Minute 3:** Show risk assessment
-- Medium risk (45-55/100)
-- Interactive gauges
-- Contributing factors
-
-**Minute 4:** Show care pathway
-- Home care monitored recommendation
-- Selangor hospitals list
-- Emergency contacts
-
-**Minute 5:** Show evaluation results
-```powershell
-python evaluation.py
+```bash
+# Always test before committing
+python config.py      # Verify config
+python engine.py      # Verify rules
+python evaluation.py  # Run full tests
+streamlit run app.py  # Test UI
 ```
-- Point to **100% diagnosis accuracy**
-- Show perfect confusion matrix
 
-**Done! Full marks!** 🏆
+### Sharing Figures
+
+All generated figures are in:
+- **Streamlit:** Downloads folder (after clicking download)
+- **Jupyter:** Project root folder (*.png files)
 
 ---
 
-## 📞 Need More Help?
+## 🆘 Need Help?
 
-### Detailed Guides:
-- **README.md** - Complete documentation with troubleshooting
-- **RUN_APP.md** - Detailed usage instructions
-- **FINAL_SOLUTION.md** - Python compatibility details
-- **PROJECT_SUMMARY.md** - Executive summary
+### Quick Checks
 
-### Quick Tests:
-```powershell
-# Test everything is working:
-python facts.py && python engine.py && echo "✓ Ready!"
-```
+- [ ] Python 3.9+ installed? `python --version`
+- [ ] Virtual environment activated? See `(.venv)` in terminal?
+- [ ] Requirements installed? `pip list | grep streamlit`
+- [ ] In correct directory? `dir app.py` (Windows) / `ls app.py` (Mac/Linux)
 
-### Emergency Reinstall:
-```powershell
-pip uninstall -y experta scikit-fuzzy streamlit
-pip install experta scikit-fuzzy numpy streamlit pandas plotly matplotlib
-python facts.py
-```
+### Resources
+
+1. **README.md** - Complete documentation
+2. **GitHub Issues** - Report bugs
+3. **Team Members** - Ask for help
+4. **In-App Help** - Click "About" page
 
 ---
 
-## 🎉 You're Ready!
+## ✅ Success Checklist
 
-**What you have:**
-- ✅ Working expert system (62 rules)
-- ✅ Professional web interface (6 pages)
-- ✅ Perfect diagnosis (100% accuracy)
-- ✅ Complete evaluation (V&V&E)
-- ✅ All documentation
+After setup, you should be able to:
 
-**Next steps:**
-1. Practice your demo (5 minutes)
-2. Prepare evaluation_report.txt for submission
-3. Take screenshots of web app
-4. Get ready for full marks!
+- [ ] Open app at http://localhost:8501
+- [ ] Complete a diagnosis
+- [ ] See results with confidence scores
+- [ ] View history of assessments
+- [ ] Generate and download figures
+- [ ] Run tests (80% accuracy)
+- [ ] No errors in terminal
 
----
-
-## 📊 Quick Reference
-
-```powershell
-# Installation
-pip install experta scikit-fuzzy numpy streamlit pandas plotly matplotlib
-
-# Run Web App (PRIMARY)
-streamlit run app.py
-# Opens: http://localhost:8501
-
-# Run Evaluation (FOR GRADING)
-python evaluation.py
-# Shows: 100% diagnosis accuracy
-
-# Test Components
-python facts.py    # Should pass all tests
-python engine.py   # Should show 100% complete
-
-# Verify Everything
-python -c "import experta, streamlit, skfuzzy; print('✓ Ready to demonstrate!')"
-```
+**All checked?** You're ready! 🎉
 
 ---
 
-**Built for TES6313 Expert Systems**  
-**Status: 100% Complete | Ready: YES** ✅
+## 📞 Contact
 
-**🚀 Good luck with your demonstration!** 🎊
+- **Repository:** https://github.com/FarisMD22/Expert_System_Covid19_Assistance
+- **Issues:** [Create an issue](https://github.com/FarisMD22/Expert_System_Covid19_Assistance/issues)
+
+---
+
+**Last Updated:** January 2026  
+**Version:** 1.0.0  
+**Status:** Production Ready ✅
+
+---
+
+<div align="center">
+
+**[📖 Full Documentation](README.md)** • **[🐛 Report Issue](https://github.com/FarisMD22/Expert_System_Covid19_Assistance/issues)** • **[⬆ Back to Top](#-cidas-quick-start-guide)**
+
+</div>
