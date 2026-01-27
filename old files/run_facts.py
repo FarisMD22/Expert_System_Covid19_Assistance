@@ -16,4 +16,4 @@ for attr in ['Mapping', 'MutableMapping', 'Iterable', 'Iterator', 'Callable',
 print("✓ Python 3.12 compatibility patch applied")
 
 # Now run facts.py
-exec(open('facts.py').read())
+exec(open('../facts.py').read())

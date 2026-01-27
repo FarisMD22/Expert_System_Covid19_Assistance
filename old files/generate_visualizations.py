@@ -44,7 +44,7 @@ sns.set_palette("husl")
 # CONFIGURATION
 # ============================================================================
 
-OUTPUT_DIR = 'evaluation_figures'
+OUTPUT_DIR = '../evaluation_figures'
 DPI = 300  # High resolution for publication
 FIGSIZE_SINGLE = (10, 8)
 FIGSIZE_DOUBLE = (12, 6)

@@ -11,7 +11,7 @@ import numpy as np
 import os
 
 # Create output directory
-os.makedirs('figures_academic', exist_ok=True)
+os.makedirs('../figures_academic', exist_ok=True)
 
 # Set style
 plt.style.use('seaborn-v0_8-paper')

@@ -1,0 +1,72 @@
+[
+  {
+    "case_id": "LIVE_1",
+    "timestamp": "2026-01-27 17:01:50",
+    "diagnosis": "COVID-19",
+    "confidence": 0.95,
+    "risk_level": "low",
+    "risk_score": 15.59,
+    "care_recommendation": "Unknown",
+    "rule": "DD-001"
+  },
+  {
+    "case_id": "LIVE_2",
+    "timestamp": "2026-01-27 17:02:15",
+    "diagnosis": "COVID-19",
+    "confidence": 0.9,
+    "risk_level": "low",
+    "risk_score": 17.25,
+    "care_recommendation": "Unknown",
+    "rule": "DD-003"
+  },
+  {
+    "case_id": "LIVE_3",
+    "timestamp": "2026-01-27 17:02:24",
+    "diagnosis": "COVID-19",
+    "confidence": 0.95,
+    "risk_level": "low",
+    "risk_score": 16.05,
+    "care_recommendation": "Unknown",
+    "rule": "DD-001"
+  },
+  {
+    "case_id": "LIVE_4",
+    "timestamp": "2026-01-27 17:02:34",
+    "diagnosis": "COVID-19",
+    "confidence": 0.88,
+    "risk_level": "low",
+    "risk_score": 15.36,
+    "care_recommendation": "Unknown",
+    "rule": "DD-002"
+  },
+  {
+    "case_id": "LIVE_5",
+    "timestamp": "2026-01-27 22:27:03",
+    "diagnosis": "COVID-19",
+    "confidence": 0.95,
+    "risk_level": "low",
+    "risk_score": 31.77,
+    "care_recommendation": "Unknown",
+    "rule": "DD-001"
+  },
+  {
+    "case_id": "LIVE_6",
+    "timestamp": "2026-01-27 22:30:59",
+    "diagnosis": "COVID-19",
+    "confidence": 0.95,
+    "risk_level": "medium",
+    "risk_score": 45.0,
+    "care_recommendation": "Unknown",
+    "rule": "DD-001"
+  },
+  {
+    "case_id": "LIVE_7",
+    "timestamp": "2026-01-27 22:59:38",
+    "diagnosis": "COVID-19",
+    "confidence": 0.95,
+    "risk_level": "medium",
+    "risk_score": 58.08,
+    "care_recommendation": "Unknown",
+    "rule": "DD-001"
+  }
+]
