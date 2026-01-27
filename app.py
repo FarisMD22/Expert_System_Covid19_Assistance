@@ -699,7 +699,139 @@ def page_diagnosis():
                     """)
 
                 st.info("**If symptoms are unclear, consult a healthcare professional for proper evaluation.**")
+        # After your diagnosis result display, add this:
 
+        # ========================================================================
+        # EDUCATIONAL BANNER - What We Looked For
+        # ========================================================================
+        st.markdown("---")
+        st.info("🔍 **What We Looked For in This Diagnosis**")
+
+        # Determine which diagnosis was made
+        diagnosis_name = st.session_state.current_assessment['diagnosis'][0][0] if st.session_state.current_assessment[
+            'diagnosis'] else "Unknown"
+
+        # Create explanation based on diagnosis
+        if diagnosis_name == "COVID-19":
+            st.markdown("""
+            **Key Indicators for COVID-19:**
+            - ✓ Loss of taste or smell (strong indicator)
+            - ✓ Dry cough
+            - ✓ Fever (gradual onset)
+            - ✓ Fatigue and body ache
+            - ✓ Shortness of breath (in severe cases)
+            - ✓ Chest pain or pressure
+    
+            **What Makes it Different:**
+            - COVID-19 typically has gradual onset
+            - Loss of taste/smell is highly specific to COVID-19
+            - Respiratory symptoms progress over days
+            """)
+
+        elif diagnosis_name == "Influenza":
+            st.markdown("""
+            **Key Indicators for Influenza:**
+            - ✓ Sudden onset (very important!)
+            - ✓ High fever (often 39°C+)
+            - ✓ Severe body ache and muscle pain
+            - ✓ Extreme fatigue
+            - ✓ Headache
+            - ✓ Dry cough
+    
+            **What Makes it Different:**
+            - Flu symptoms appear suddenly (within hours)
+            - Body ache is typically more severe than COVID-19
+            - No loss of taste/smell
+            """)
+
+        elif diagnosis_name == "Common Cold":
+            st.markdown("""
+            **Key Indicators for Common Cold:**
+            - ✓ Runny or stuffy nose (primary symptom)
+            - ✓ Sneezing
+            - ✓ Sore throat
+            - ✓ Mild cough (often productive)
+            - ✓ Usually NO fever (or very mild)
+            - ✓ Gradual onset over 1-2 days
+    
+            **What Makes it Different:**
+            - Nasal symptoms are dominant
+            - Milder than flu or COVID-19
+            - No loss of taste/smell
+            - No high fever
+            """)
+
+        elif diagnosis_name == "Allergies":
+            st.markdown("""
+            **Key Indicators for Allergies:**
+            - ✓ Itchy, watery eyes (very specific!)
+            - ✓ Sneezing (often in episodes)
+            - ✓ Runny nose with clear discharge
+            - ✓ Itchy nose or throat
+            - ✓ NO fever
+            - ✓ Symptoms triggered by allergens (pollen, dust, etc.)
+    
+            **What Makes it Different:**
+            - Itchy eyes are highly specific to allergies
+            - Symptoms improve when away from allergen
+            - No fever or body ache
+            - Can be seasonal or year-round
+            """)
+
+        else:
+            st.markdown("""
+            **General Indicators Analyzed:**
+            - Symptom patterns and combinations
+            - Onset timing (sudden vs. gradual)
+            - Presence of characteristic symptoms
+            - Fever patterns and severity
+            - Duration and progression
+            """)
+
+
+        symptoms_present = []
+
+        # Add match explanation
+        st.markdown("---")
+        confidence = st.session_state.current_assessment['diagnosis'][0][1] * 100 if st.session_state.current_assessment[
+            'diagnosis'] else 0
+
+        if confidence >= 85:
+            st.success(
+                f"✅ **Strong Match** ({confidence:.0f}% confidence): Your symptoms strongly align with {diagnosis_name} patterns.")
+        elif confidence >= 70:
+            st.info(
+                f"ℹ️ **Good Match** ({confidence:.0f}% confidence): Your symptoms align well with {diagnosis_name} patterns.")
+        else:
+            st.warning(
+                f"⚠️ **Moderate Match** ({confidence:.0f}% confidence): Some symptoms match {diagnosis_name}, but consider other possibilities.")
+        # Show what the diagnosis was based on
+        col1, col2, col3 = st.columns(3)
+
+        with col1:
+            st.metric(
+                label="Diagnosis",
+                value=diagnosis_name,
+                delta=f"{confidence:.0f}% match"
+            )
+
+        with col2:
+            if 'risk' in st.session_state.current_assessment:
+                risk_level = st.session_state.current_assessment['risk'].get('risk_level', 'Unknown')
+                risk_score = st.session_state.current_assessment['risk'].get('risk_score', 0)
+                st.metric(
+                    label="Risk Level",
+                    value=risk_level.upper(),
+                    delta=f"{risk_score:.1f}/100"
+                )
+
+        with col3:
+            rule = st.session_state.current_assessment.get('diagnosis', [[None, None, None]])[0][
+                2] if st.session_state.current_assessment.get('diagnosis') else "N/A"
+            st.metric(
+                label="Rule Applied",
+                value=rule
+            )
 
 # ============================================================================
 # PAGE 3: RISK ASSESSMENT
