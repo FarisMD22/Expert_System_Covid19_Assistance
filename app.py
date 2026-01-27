@@ -30,7 +30,7 @@ import json
 # Visualization imports
 import visualizations as viz
 import io
-
+import os
 
 from engine import DifferentialDiagnosisEngine, FuzzyRiskEngine, SeverityEngine, ExplanationEngine
 from facts import *
@@ -51,6 +51,47 @@ if 'risk_result' not in st.session_state:
 
 if 'recommendation_result' not in st.session_state:
     st.session_state.recommendation_result = None
+
+
+def save_diagnosis_to_file(assessment):
+    """
+    Save diagnosis to JSON file for real-time analytics
+    Creates connection between Streamlit app and Jupyter notebook
+    """
+    filename = "diagnosis_history.json"
+
+    # Load existing history
+    if os.path.exists(filename):
+        try:
+            with open(filename, 'r') as f:
+                history = json.load(f)
+        except:
+            history = []
+    else:
+        history = []
+
+    # Create entry
+    diagnosis_entry = {
+        "case_id": f"LIVE_{len(history) + 1}",
+        "timestamp": assessment['timestamp'].strftime('%Y-%m-%d %H:%M:%S') if hasattr(assessment['timestamp'],
+                                                                                      'strftime') else str(
+            assessment['timestamp']),
+        "diagnosis": assessment['diagnosis'][0][0] if assessment['diagnosis'] else "Unknown",
+        "confidence": float(assessment['diagnosis'][0][1]) if assessment['diagnosis'] else 0.0,
+        "risk_level": assessment['risk']['risk_level'],
+        "risk_score": float(assessment['risk']['risk_score']),
+        "care_recommendation": assessment.get('care_recommendation', {}).get('recommendation', 'Unknown'),
+        "rule": assessment['diagnosis'][0][2] if assessment['diagnosis'] and len(
+            assessment['diagnosis'][0]) > 2 else "N/A"
+    }
+
+    history.append(diagnosis_entry)
+
+    # Save
+    with open(filename, 'w') as f:
+        json.dump(history, f, indent=2)
+
+    return True
 # ============================================================================
 # PAGE CONFIGURATION
 # ============================================================================
@@ -162,6 +203,7 @@ def save_assessment(patient_data, diagnosis, risk, recommendation):
         'recommendation': recommendation
     }
     st.session_state.assessment_history.append(assessment)
+    save_diagnosis_to_file(assessment)
     st.session_state.current_assessment = assessment
 
 
