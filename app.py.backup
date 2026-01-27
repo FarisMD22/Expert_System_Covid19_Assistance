@@ -27,30 +27,11 @@ import plotly.graph_objects as go
 import plotly.express as px
 from datetime import datetime, timedelta
 import json
-# Visualization imports
-import visualizations as viz
-import io
-
 
 from engine import DifferentialDiagnosisEngine, FuzzyRiskEngine, SeverityEngine, ExplanationEngine
 from facts import *
 from config import *
 
-# Initialize session state variables
-if 'history' not in st.session_state:
-    st.session_state.history = []
-
-if 'current_patient' not in st.session_state:
-    st.session_state.current_patient = None
-
-if 'diagnosis_result' not in st.session_state:
-    st.session_state.diagnosis_result = None
-
-if 'risk_result' not in st.session_state:
-    st.session_state.risk_result = None
-
-if 'recommendation_result' not in st.session_state:
-    st.session_state.recommendation_result = None
 # ============================================================================
 # PAGE CONFIGURATION
 # ============================================================================
@@ -187,10 +168,10 @@ def render_sidebar():
         st.markdown("---")
 
         # Language selection
-        st.subheader( t("Navigation Settings"))
+        st.subheader("⚙️ " + t("nav_settings"))
         lang_options = {"English": "en"}
         selected_lang = st.selectbox(
-            "Language",
+            "Language / Bahasa",
             options=list(lang_options.keys()),
             index=0 if st.session_state.language == 'en' else 1
         )
@@ -199,7 +180,7 @@ def render_sidebar():
         st.markdown("---")
 
         # Navigation
-        st.subheader("Navigation")
+        st.subheader("📍 Navigation")
         page = st.radio(
             "Go to",
             [
@@ -216,7 +197,7 @@ def render_sidebar():
         st.markdown("---")
 
         # Emergency contacts
-        st.subheader(" Emergency Contacts")
+        st.subheader("🚨 Emergency Contacts")
         st.markdown(f"""
         **National Emergency:** {get_emergency_number('national')}  
         **COVID-19 Hotline:** {get_emergency_number('covid_hotline')}  
@@ -249,7 +230,7 @@ def page_home():
     with col1:
         st.markdown("""
         <div class='metric-card'>
-            <h3>Differential Diagnosis</h3>
+            <h3>🔬 Differential Diagnosis</h3>
             <p>27 diagnostic rules</p>
             <p>Distinguishes COVID-19, Influenza, Common Cold, Allergies</p>
         </div>
@@ -258,7 +239,7 @@ def page_home():
     with col2:
         st.markdown("""
         <div class='metric-card'>
-            <h3>Risk Assessment</h3>
+            <h3>📊 Risk Assessment</h3>
             <p>20 fuzzy logic rules</p>
             <p>Low, Medium, High, Critical risk classification</p>
         </div>
@@ -267,7 +248,7 @@ def page_home():
     with col3:
         st.markdown("""
         <div class='metric-card'>
-            <h3> Care Pathway</h3>
+            <h3>🏥 Care Pathway</h3>
             <p>15 hospitalization rules</p>
             <p>Evidence-based recommendations with Malaysian integration</p>
         </div>
@@ -276,9 +257,9 @@ def page_home():
     st.markdown("---")
 
     # How to use
-    st.subheader(" How to Use This System")
+    st.subheader("📖 How to Use This System")
 
-    with st.expander("Input Symptoms & Information", expanded=True):
+    with st.expander("1️⃣ Input Symptoms & Information", expanded=True):
         st.markdown("""
         Navigate to the **Diagnosis** page and enter:
         - Patient demographics (age, gender, state)
@@ -287,7 +268,7 @@ def page_home():
         - Exposure history (if applicable)
         """)
 
-    with st.expander("Review Diagnosis"):
+    with st.expander("2️⃣ Review Diagnosis"):
         st.markdown("""
         The system will analyze symptoms using 27 expert rules and provide:
         - Most likely condition with confidence level
@@ -295,7 +276,7 @@ def page_home():
         - Clinical reasoning and evidence
         """)
 
-    with st.expander("Check Risk Assessment"):
+    with st.expander("3️⃣ Check Risk Assessment"):
         st.markdown("""
         Fuzzy logic analysis considering:
         - Fever level and symptom count
@@ -304,7 +285,7 @@ def page_home():
         - Overall risk score (0-100)
         """)
 
-    with st.expander("Follow Care Recommendations"):
+    with st.expander("4️⃣ Follow Care Recommendations"):
         st.markdown("""
         Receive personalized care pathway:
         - Home isolation, monitored care, hospitalization, or ICU
@@ -318,7 +299,7 @@ def page_home():
     # Disclaimer
     st.markdown(f"""
     <div class='danger-box'>
-        <h4>Medical Disclaimer</h4>
+        <h4>⚠️ Medical Disclaimer</h4>
         <p>{t('disclaimer')}</p>
     </div>
     """, unsafe_allow_html=True)
@@ -326,7 +307,7 @@ def page_home():
     # Quick stats
     if st.session_state.assessment_history:
         st.markdown("---")
-        st.subheader("Your Usage Statistics")
+        st.subheader("📈 Your Usage Statistics")
         col1, col2, col3 = st.columns(3)
         with col1:
             st.metric("Total Assessments", len(st.session_state.assessment_history))
@@ -344,7 +325,7 @@ def page_home():
 
 def page_diagnosis():
     """Diagnosis page with symptom input and analysis"""
-    st.markdown(f"<div class='sub-header'>{t('nav_diagnosis')}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='sub-header'>🔬 {t('nav_diagnosis')}</div>", unsafe_allow_html=True)
 
     st.markdown("---")
 
@@ -541,7 +522,7 @@ def page_diagnosis():
 
                 st.markdown(f"""
                 <div class='success-box'>
-                    <h3>{t('diagnosis')}</h3>
+                    <h3>🔬 {t('diagnosis')}</h3>
                     <h2>{top_condition}</h2>
                     <p><strong>{t('confidence')}:</strong> {int(top_confidence * 100)}%</p>
                     <p><small>Rule: {top_rule}</small></p>
@@ -606,11 +587,11 @@ def page_diagnosis():
 
                 save_assessment(patient_data, results, risk, None)
 
-                st.info("Navigate to **Risk Assessment** page to see detailed risk analysis")
+                st.info("💡 Navigate to **Risk Assessment** page to see detailed risk analysis")
 
             else:
                 # No diagnosis - provide helpful guidance
-                st.warning("**Insufficient information for diagnosis**")
+                st.warning("⚠️ **Insufficient information for diagnosis**")
 
                 st.markdown("""
                 <div class='info-box'>
@@ -623,34 +604,34 @@ def page_diagnosis():
 
                 with col1:
                     st.markdown("""
-                    **For COVID-19 diagnosis, we need:**
-                    - **Loss of taste or smell** (most specific symptom)
-                    - OR **Dry cough + Fever + Fatigue** (classic pattern)
-                    - OR **Dry cough + Fever + Shortness of breath**
+                    **🦠 For COVID-19 diagnosis, we need:**
+                    - ✅ **Loss of taste or smell** (most specific symptom)
+                    - OR ✅ **Dry cough + Fever + Fatigue** (classic pattern)
+                    - OR ✅ **Dry cough + Fever + Shortness of breath**
 
-                    **If you don't have these symptoms, you probably don't have COVID-19.**
+                    **💡 If you don't have these symptoms, you probably don't have COVID-19.**
                     """)
 
                     st.markdown("""
-                    **For Common Cold diagnosis, we need:**
-                    - **Runny nose + Sneezing**
-                    - **NO fever** (or very low <37.5°C)
-                    - Gradual onset
+                    **🤧 For Common Cold diagnosis, we need:**
+                    - ✅ **Runny nose + Sneezing**
+                    - ✅ **NO fever** (or very low <37.5°C)
+                    - ✅ Gradual onset
                     """)
 
                 with col2:
                     st.markdown("""
-                    **For Influenza diagnosis, we need:**
-                    - **Sudden onset** (symptoms within hours)
-                    - **Severe body ache** + High fever
-                    - **Severe fatigue**
+                    **🤒 For Influenza diagnosis, we need:**
+                    - ✅ **Sudden onset** (symptoms within hours)
+                    - ✅ **Severe body ache** + High fever
+                    - ✅ **Severe fatigue**
                     """)
 
                     st.markdown("""
-                    **For Allergies diagnosis, we need:**
-                    - **Itchy/watery eyes** + Frequent sneezing
-                    - **NO fever** (allergies don't cause fever)
-                    - Sudden onset (exposure to allergen)
+                    **🌸 For Allergies diagnosis, we need:**
+                    - ✅ **Itchy/watery eyes** + Frequent sneezing
+                    - ✅ **NO fever** (allergies don't cause fever)
+                    - ✅ Sudden onset (exposure to allergen)
                     """)
 
                 st.markdown("---")
@@ -667,38 +648,38 @@ def page_diagnosis():
                 # Check what's missing for each condition
                 if fever and not loss_of_taste_smell and not cough:
                     suggestions.append(
-                        "You have **fever** but no respiratory symptoms. Try adding **Cough** or check if you have **Loss of taste/smell**.")
+                        "💡 You have **fever** but no respiratory symptoms. Try adding **Cough** or check if you have **Loss of taste/smell**.")
 
                 if (runny_nose or sneezing) and fever:
                     suggestions.append(
-                        "You have **nasal symptoms** (runny nose/sneezing) but also **fever**. This is contradictory - allergies/colds don't usually cause fever. Either uncheck fever or check other symptoms.")
+                        "⚠️ You have **nasal symptoms** (runny nose/sneezing) but also **fever**. This is contradictory - allergies/colds don't usually cause fever. Either uncheck fever or check other symptoms.")
 
                 if itchy_eyes and fever:
                     suggestions.append(
-                        "You have **itchy eyes** (suggests allergies) but also **fever** (suggests infection). These contradict each other. Allergies don't cause fever.")
+                        "⚠️ You have **itchy eyes** (suggests allergies) but also **fever** (suggests infection). These contradict each other. Allergies don't cause fever.")
 
                 if not fever and not cough and not loss_of_taste_smell and not body_ache:
                     suggestions.append(
-                        "Very few symptoms checked. Add more symptoms like **Cough**, **Fever**, or **Body ache** to help us diagnose.")
+                        "💡 Very few symptoms checked. Add more symptoms like **Cough**, **Fever**, or **Body ache** to help us diagnose.")
 
                 if body_ache and fever and onset != "Sudden":
                     suggestions.append(
-                        "You have **body ache + fever** but **gradual onset**. Change onset to **Sudden (within hours)** if it's influenza.")
+                        "💡 You have **body ache + fever** but **gradual onset**. Change onset to **Sudden (within hours)** if it's influenza.")
 
                 if suggestions:
-                    st.markdown("### Suggestions:")
+                    st.markdown("### 🎯 Suggestions:")
                     for suggestion in suggestions:
                         st.markdown(f"- {suggestion}")
                 else:
                     st.markdown("""
-                    ### What to do:
+                    ### 🎯 What to do:
                     - **Review your symptoms** - Make sure you've checked all that apply
                     - **Check key symptoms** - Loss of taste/smell, Dry cough, Severe body ache, Runny nose
                     - **Verify onset timing** - Sudden (within hours) vs Gradual (over days)
                     - **Remove contradictory symptoms** - No fever with allergies, No sneezing with flu
                     """)
 
-                st.info("**If symptoms are unclear, consult a healthcare professional for proper evaluation.**")
+                st.info("🏥 **If symptoms are unclear, consult a healthcare professional for proper evaluation.**")
 
 
 # ============================================================================
@@ -707,10 +688,10 @@ def page_diagnosis():
 
 def page_risk_assessment():
     """Risk assessment page with fuzzy logic analysis"""
-    st.markdown(f"<div class='sub-header'> {t('nav_risk')}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='sub-header'>📊 {t('nav_risk')}</div>", unsafe_allow_html=True)
 
     if not st.session_state.current_assessment:
-        st.info("Please complete a diagnosis first")
+        st.info("👈 Please complete a diagnosis first")
         return
 
     assessment = st.session_state.current_assessment
@@ -726,7 +707,7 @@ def page_risk_assessment():
     # Show warning if there was an error in calculation
     if 'error' in risk:
         st.warning(
-            f" Note: Risk calculation encountered an issue. Showing conservative medium risk estimate. ({risk['error']})")
+            f"⚠️ Note: Risk calculation encountered an issue. Showing conservative medium risk estimate. ({risk['error']})")
 
     st.markdown(f"""
     <div style='background-color: {risk_color}; padding: 2rem; border-radius: 1rem; color: white; text-align: center;'>
@@ -752,15 +733,15 @@ def page_risk_assessment():
     col1, col2, col3, col4, col5 = st.columns(5)
 
     with col1:
-        st.metric(" Fever", f"{inputs.get('fever', 0):.1f}°C")
+        st.metric("🌡️ Fever", f"{inputs.get('fever', 0):.1f}°C")
     with col2:
-        st.metric("Symptoms", inputs.get('symptoms', 0))
+        st.metric("📋 Symptoms", inputs.get('symptoms', 0))
     with col3:
-        st.metric("Severity", f"{inputs.get('severity', 0):.0f}/100")
+        st.metric("⚠️ Severity", f"{inputs.get('severity', 0):.0f}/100")
     with col4:
-        st.metric("Age", f"{inputs.get('age', 0)} yrs")
+        st.metric("👤 Age", f"{inputs.get('age', 0)} yrs")
     with col5:
-        st.metric("Comorbidity", f"{inputs.get('comorbidity', 0):.1f}/10")
+        st.metric("🏥 Comorbidity", f"{inputs.get('comorbidity', 0):.1f}/10")
 
     # Gauge chart
     fig = go.Figure(go.Indicator(
@@ -796,7 +777,7 @@ def page_risk_assessment():
     if risk_level == 'critical':
         st.markdown("""
         <div class='danger-box'>
-            <h4>CRITICAL RISK (80-100)</h4>
+            <h4>🚨 CRITICAL RISK (80-100)</h4>
             <ul>
                 <li>Immediate medical evaluation required</li>
                 <li>High risk of severe complications</li>
@@ -808,7 +789,7 @@ def page_risk_assessment():
     elif risk_level == 'high':
         st.markdown("""
         <div class='warning-box'>
-            <h4>HIGH RISK (65-80)</h4>
+            <h4>⚠️ HIGH RISK (65-80)</h4>
             <ul>
                 <li>Urgent medical consultation recommended</li>
                 <li>Increased risk of complications</li>
@@ -820,7 +801,7 @@ def page_risk_assessment():
     elif risk_level == 'medium':
         st.markdown("""
         <div class='info-box'>
-            <h4>MEDIUM RISK (35-65)</h4>
+            <h4>ℹ️ MEDIUM RISK (35-65)</h4>
             <ul>
                 <li>Medical consultation recommended</li>
                 <li>Moderate risk of complications</li>
@@ -832,7 +813,7 @@ def page_risk_assessment():
     else:
         st.markdown("""
         <div class='success-box'>
-            <h4>LOW RISK (0-35)</h4>
+            <h4>✅ LOW RISK (0-35)</h4>
             <ul>
                 <li>Standard home care appropriate</li>
                 <li>Low risk of severe complications</li>
@@ -851,13 +832,13 @@ def page_risk_assessment():
 
 def page_care_pathway():
     """Care pathway recommendations with hospital finder"""
-    st.markdown(f"<div class='sub-header'> {t('nav_care')}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='sub-header'>🏥 {t('nav_care')}</div>", unsafe_allow_html=True)
 
     if not st.session_state.current_assessment:
         st.markdown("---")
         st.markdown("""
         <div class='info-box'>
-            <h3>How to Get Your Care Recommendation</h3>
+            <h3>📋 How to Get Your Care Recommendation</h3>
             <p><strong>Follow these 3 steps:</strong></p>
             <ol>
                 <li><strong>Go to Diagnosis page</strong> → Enter your symptoms and medical information</li>
@@ -865,7 +846,7 @@ def page_care_pathway():
                 <li><strong>Navigate to Risk Assessment</strong> → View your risk level</li>
                 <li><strong>Return to this page</strong> → Your care recommendation will appear automatically!</li>
             </ol>
-            <p style='margin-top: 1rem;'><em> Tip: Complete the diagnosis first, then your care pathway will be ready here.</em></p>
+            <p style='margin-top: 1rem;'><em>💡 Tip: Complete the diagnosis first, then your care pathway will be ready here.</em></p>
         </div>
         """, unsafe_allow_html=True)
 
@@ -873,8 +854,8 @@ def page_care_pathway():
         st.markdown("<br>", unsafe_allow_html=True)
         col1, col2, col3 = st.columns([1, 1, 1])
         with col2:
-            if st.button("Go to Diagnosis Page", type="primary", use_container_width=True):
-                st.info("Use the sidebar to navigate to Diagnosis page")
+            if st.button("🔬 Go to Diagnosis Page", type="primary", use_container_width=True):
+                st.info("👈 Use the sidebar to navigate to Diagnosis page")
 
         return
 
@@ -884,7 +865,7 @@ def page_care_pathway():
 
     # Check if risk assessment exists
     if not risk:
-        st.warning("Risk assessment not found. Please complete the Risk Assessment page first.")
+        st.warning("⚠️ Risk assessment not found. Please complete the Risk Assessment page first.")
         return
 
     st.markdown("---")
@@ -940,14 +921,17 @@ def page_care_pathway():
         # Display recommendation
         if urgency == "EMERGENCY":
             box_class = 'danger-box'
+            icon = "🚨"
         elif urgency == "URGENT":
             box_class = 'warning-box'
+            icon = "⚠️"
         else:
             box_class = 'info-box'
+            icon = "ℹ️"
 
         st.markdown(f"""
         <div class='{box_class}'>
-            <h2> {action.replace('_', ' ').title()}</h2>
+            <h2>{icon} {action.replace('_', ' ').title()}</h2>
             <h4>Urgency: {urgency}</h4>
             <p>{recommendation.get('explanation', '')}</p>
         </div>
@@ -956,7 +940,7 @@ def page_care_pathway():
         st.markdown("---")
 
         # What to do
-        st.subheader("What To Do")
+        st.subheader("📋 What To Do")
 
         if action == "IMMEDIATE_HOSPITALIZATION":
             st.markdown("""
@@ -1031,7 +1015,7 @@ def page_care_pathway():
 
         # Hospital finder
         if action in ["IMMEDIATE_HOSPITALIZATION", "HOSPITALIZATION"]:
-            st.subheader(f"{t('nearest_hospitals')}")
+            st.subheader(f"🏥 {t('nearest_hospitals')}")
 
             state = patient['state']
             hospitals = get_hospitals_by_state(state)
@@ -1046,7 +1030,7 @@ def page_care_pathway():
             st.markdown("---")
 
             # Emergency contacts
-            st.subheader("Emergency Contacts")
+            st.subheader("📞 Emergency Contacts")
             st.markdown(f"""
             - **Emergency:** {get_emergency_number('national')}
             - **COVID-19 Hotline:** {get_emergency_number('covid_hotline')}
@@ -1058,7 +1042,7 @@ def page_care_pathway():
         st.markdown("---")
         st.markdown("""
         <div class='warning-box'>
-            <h3>Unable to Generate Specific Recommendation</h3>
+            <h3>⚠️ Unable to Generate Specific Recommendation</h3>
             <p>We couldn't generate a detailed care recommendation based on your current data.</p>
             <p><strong>Possible reasons:</strong></p>
             <ul>
@@ -1098,16 +1082,16 @@ def page_care_pathway():
             st.subheader("General Care Guidance")
             if risk_level == 'critical' or risk_level == 'high':
                 st.error(
-                    "  **High/Critical Risk:** Please seek medical attention immediately. Call 999 or go to nearest hospital.")
+                    "🚨 **High/Critical Risk:** Please seek medical attention immediately. Call 999 or go to nearest hospital.")
             elif risk_level == 'medium':
                 st.warning(
-                    "️ **Medium Risk:** Consult a healthcare provider within 24-48 hours. Monitor symptoms closely.")
+                    "⚠️ **Medium Risk:** Consult a healthcare provider within 24-48 hours. Monitor symptoms closely.")
             else:
-                st.info(" **Low Risk:** Self-monitor at home. Seek care if symptoms worsen.")
+                st.info("ℹ️ **Low Risk:** Self-monitor at home. Seek care if symptoms worsen.")
 
         # Emergency contacts always shown
         st.markdown("---")
-        st.subheader(" Emergency Contacts")
+        st.subheader("📞 Emergency Contacts")
         st.markdown(f"""
         - **Emergency:** {get_emergency_number('national')}
         - **COVID-19 Hotline:** {get_emergency_number('covid_hotline')}
@@ -1121,144 +1105,83 @@ def page_care_pathway():
 
 def page_history():
     """Assessment history tracking"""
-    st.markdown(f"<div class='sub-header'> {t('nav_history')}</div>", unsafe_allow_html=True)
-    st.markdown("---")
-    st.markdown("###  Generate Figures & Analytics")
+    st.markdown(f"<div class='sub-header'>📈 {t('nav_history')}</div>", unsafe_allow_html=True)
 
-    # Check if we have data
     if not st.session_state.assessment_history:
-        st.info(" No history data. Complete at least one diagnosis first!")
-    else:
-        # Transform assessment_history to format expected by visualizations.py
-        history_for_viz = []
+        st.info("No assessment history yet. Complete a diagnosis to start tracking.")
+        return
 
-        for assessment in st.session_state.assessment_history:
-            # Extract data safely
-            diagnosis_data = assessment.get('diagnosis', [])
-            risk_data = assessment.get('risk', {})
+    st.markdown("---")
 
-            # Get diagnosis name and confidence
-            if diagnosis_data and len(diagnosis_data) > 0:
-                diag_name = diagnosis_data[0][0] if len(diagnosis_data[0]) > 0 else 'Unknown'
-                diag_conf = diagnosis_data[0][1] if len(diagnosis_data[0]) > 1 else 0.0
-            else:
-                diag_name = 'Unknown'
-                diag_conf = 0.0
+    # Statistics
+    total_assessments = len(st.session_state.assessment_history)
 
-            # Get risk info
-            risk_level = risk_data.get('risk_level', 'unknown')
-            risk_score = risk_data.get('risk_score', 0.0)
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric("Total Assessments", total_assessments)
+    with col2:
+        first_date = st.session_state.assessment_history[0]['timestamp']
+        st.metric("First Assessment", first_date.strftime("%Y-%m-%d"))
+    with col3:
+        last_date = st.session_state.assessment_history[-1]['timestamp']
+        st.metric("Last Assessment", last_date.strftime("%Y-%m-%d"))
 
-            # Create simplified entry
-            viz_entry = {
-                'timestamp': assessment.get('timestamp', datetime.now()).strftime('%Y-%m-%d %H:%M:%S'),
-                'diagnosis': diag_name,
-                'confidence': diag_conf,
-                'risk_level': risk_level.capitalize(),  # "low" -> "Low"
-                'risk_score': risk_score,
-                'symptoms': assessment.get('symptoms', {})
-            }
-            history_for_viz.append(viz_entry)
+    st.markdown("---")
 
-        # Show how many records we have
-        st.info(f" Found {len(history_for_viz)} assessment(s) ready for visualization")
+    # Timeline
+    st.subheader("Assessment Timeline")
 
-        # Create buttons
-        col1, col2, col3 = st.columns(3)
+    df = pd.DataFrame([
+        {
+            'Date': a['timestamp'].strftime("%Y-%m-%d %H:%M"),
+            'Diagnosis': a['diagnosis'][0][0] if a['diagnosis'] else 'N/A',
+            'Confidence': f"{int(a['diagnosis'][0][1] * 100)}%" if a['diagnosis'] else 'N/A',
+            'Risk Level': a['risk']['risk_level'].upper(),
+            'Risk Score': f"{a['risk']['risk_score']:.1f}"
+        }
+        for a in st.session_state.assessment_history
+    ])
 
-        with col1:
-            if st.button(" Generate All Figures", type="primary", key="gen_all"):
-                with st.spinner("Generating comprehensive report..."):
-                    try:
-                        import visualizations as viz
-                        import io
+    st.dataframe(df, use_container_width=True)
 
-                        fig = viz.generate_comprehensive_report(history_for_viz)
+    # Risk trend chart
+    if total_assessments > 1:
+        st.subheader("Risk Score Trend")
 
-                        if fig:
-                            st.pyplot(fig)
+        dates = [a['timestamp'] for a in st.session_state.assessment_history]
+        scores = [a['risk']['risk_score'] for a in st.session_state.assessment_history]
 
-                            # Create download button
-                            buf = io.BytesIO()
-                            fig.savefig(buf, format='png', dpi=300, bbox_inches='tight')
-                            buf.seek(0)
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(
+            x=dates,
+            y=scores,
+            mode='lines+markers',
+            name='Risk Score',
+            line=dict(color='#1f77b4', width=3),
+            marker=dict(size=10)
+        ))
 
-                            st.download_button(
-                                label=" Download Report (PNG)",
-                                data=buf,
-                                file_name=f"CIDAS_Report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png",
-                                mime="image/png",
-                                key="download_all"
-                            )
-                            st.success(" Report generated successfully!")
-                        else:
-                            st.error("Failed to generate figure")
+        # Add risk level zones
+        fig.add_hrect(y0=0, y1=35, fillcolor="green", opacity=0.1, line_width=0)
+        fig.add_hrect(y0=35, y1=65, fillcolor="yellow", opacity=0.1, line_width=0)
+        fig.add_hrect(y0=65, y1=90, fillcolor="orange", opacity=0.1, line_width=0)
+        fig.add_hrect(y0=90, y1=100, fillcolor="red", opacity=0.1, line_width=0)
 
-                    except ImportError as e:
-                        st.error(" visualizations.py not found. Please add it to your project folder.")
-                        st.info("Make sure visualizations.py is in the same directory as app.py")
-                    except Exception as e:
-                        st.error(f" Error: {str(e)}")
-                        st.info("Debug info: Check that visualizations.py has generate_comprehensive_report()")
+        fig.update_layout(
+            title="Risk Score Over Time",
+            xaxis_title="Date",
+            yaxis_title="Risk Score",
+            height=400,
+            yaxis_range=[0, 100]
+        )
 
-        with col2:
-            if st.button(" Diagnosis Distribution", key="gen_diag"):
-                with st.spinner("Generating diagnosis chart..."):
-                    try:
-                        import visualizations as viz
-                        import io
+        st.plotly_chart(fig, use_container_width=True)
 
-                        fig = viz.generate_diagnosis_pie_chart(history_for_viz)
-
-                        if fig:
-                            st.pyplot(fig)
-
-                            buf = io.BytesIO()
-                            fig.savefig(buf, format='png', dpi=300, bbox_inches='tight')
-                            buf.seek(0)
-
-                            st.download_button(
-                                label=" Download Chart",
-                                data=buf,
-                                file_name=f"diagnosis_distribution_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png",
-                                mime="image/png",
-                                key="download_diag"
-                            )
-                        else:
-                            st.error("Failed to generate chart")
-
-                    except Exception as e:
-                        st.error(f" Error: {str(e)}")
-
-        with col3:
-            if st.button("Risk Analysis", key="gen_risk"):
-                with st.spinner("Generating risk chart..."):
-                    try:
-                        import visualizations as viz
-                        import io
-
-                        fig = viz.generate_risk_distribution_chart(history_for_viz)
-
-                        if fig:
-                            st.pyplot(fig)
-
-                            buf = io.BytesIO()
-                            fig.savefig(buf, format='png', dpi=300, bbox_inches='tight')
-                            buf.seek(0)
-
-                            st.download_button(
-                                label=" Download Chart",
-                                data=buf,
-                                file_name=f"risk_analysis_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png",
-                                mime="image/png",
-                                key="download_risk"
-                            )
-                        else:
-                            st.error("Failed to generate chart")
-
-                    except Exception as e:
-                        st.error(f" Error: {str(e)}")
-
+    # Clear history button
+    if st.button("🗑️ Clear History", type="secondary"):
+        st.session_state.assessment_history = []
+        st.session_state.current_assessment = None
+        st.rerun()
 
 
 # ============================================================================
@@ -1267,7 +1190,7 @@ def page_history():
 
 def page_about():
     """About page with system information"""
-    st.markdown(f"<div class='sub-header'> {t('nav_about')}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div class='sub-header'>ℹ️ {t('nav_about')}</div>", unsafe_allow_html=True)
 
     st.markdown("---")
 
@@ -1338,7 +1261,7 @@ def page_about():
     # Disclaimer
     st.markdown(f"""
     <div class='danger-box'>
-        <h4> Important Disclaimer</h4>
+        <h4>⚠️ Important Disclaimer</h4>
         <p>{t('disclaimer')}</p>
     </div>
     """, unsafe_allow_html=True)

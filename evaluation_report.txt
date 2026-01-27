@@ -1,7 +1,7 @@
 ================================================================================
 CIDAS EXPERT SYSTEM - EVALUATION REPORT
 ================================================================================
-Generated: 2026-01-26 23:47:01
+Generated: 2026-01-27 12:04:36
 
 ================================================================================
 SECTION 1: VERIFICATION (Internal Consistency)
@@ -29,8 +29,8 @@ Test Cases:
 Module Accuracy:
   Diagnosis: 100.00%
   Risk Assessment: 70.00%
-  Recommendation: 60.00%
-  Overall: 76.67%
+  Recommendation: 70.00%
+  Overall: 80.00%
 
 ================================================================================
 SECTION 3: EVALUATION (Performance Metrics)
@@ -44,7 +44,7 @@ Per-Class Metrics:
     F1-Score: 100.00%
     Support: 2 cases
 
-  Allergies:
+  Common Cold:
     Precision: 100.00%
     Recall: 100.00%
     F1-Score: 100.00%
@@ -56,7 +56,7 @@ Per-Class Metrics:
     F1-Score: 100.00%
     Support: 4 cases
 
-  Common Cold:
+  Allergies:
     Precision: 100.00%
     Recall: 100.00%
     F1-Score: 100.00%
@@ -68,11 +68,11 @@ Per-Class Metrics:
     F1-Score: 100.00%
 
 Confusion Matrix:
-             Influenza  Allergies  COVID-19  Common Cold
-Influenza            2          0         0            0
-Allergies            0          2         0            0
-COVID-19             0          0         4            0
-Common Cold          0          0         0            2
+             Influenza  Common Cold  COVID-19  Allergies
+Influenza            2            0         0          0
+Common Cold          0            2         0          0
+COVID-19             0            0         4          0
+Allergies            0            0         0          2
 
 ================================================================================
 SUMMARY
@@ -85,7 +85,7 @@ System Components:
   - Total: 62 expert rules
 
 Verification Status: PASSED
-Validation Accuracy: 76.67%
+Validation Accuracy: 80.00%
 Evaluation F1-Score: 100.00%
 
 ================================================================================
